@@ -1,10 +1,32 @@
 {
-    "manifest_version": 3,
-    "name": "Costume-Client",
-    "description": "Client for Costume Mod",
-    "version": "1.0",
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": "icon.png"
+  "manifest_version": 3,
+  "name": "Costume-Client",
+  "description": "Client for Costume Mod by #SaveCW",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "./icons/icon16.png",
+    "48": "./icons/icon48.png",
+    "128": "./icons/icon128.png"
+  },
+  "permissions": [
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://catwar.su/cw3/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://catwar.su/cw3/*"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
     }
+  ]
 }
