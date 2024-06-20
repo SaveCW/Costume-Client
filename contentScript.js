@@ -10,8 +10,6 @@ const observer = new PerformanceObserver((list) => {
             var cat = element.closest(".cat")
             var catPos = cat.querySelector(".d");
             if (catPos == null) {
-                console.log("CatPos is null")
-                console.log(element)
                 return;
             }
             var catSize = cat.getElementsByClassName("first")[0].style.backgroundSize;
