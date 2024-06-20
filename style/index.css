@@ -61,3 +61,8 @@ hr {
     text-align: left;
 
 }
+
+#catID {
+    margin-top: 5px;
+    font-size: 12px;
+}
