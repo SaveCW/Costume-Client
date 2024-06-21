@@ -92,3 +92,24 @@ hr {
     flex-grow: 1;
     text-align: center;
 }
+
+.changeCostume {
+    background-color: #FF5964;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 1px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.note {
+    font-size: 12px;
+    color: #FF5964;
+    margin-top: 1rem;
+}

@@ -10,7 +10,7 @@ function addWarning(message){
         setTimeout(() => {
             warning.remove();
         }, 2000);
-    }, 5000);
+    }, 15000);
 }
 
 async function getCostume(id, size) {
@@ -72,7 +72,7 @@ document.getElementById("getID").addEventListener("click", function() {
                 });
 
                 getCostume(id, size).then(costume => {
-                     document.getElementById("cat").appendChild(costume);
+                     document.getElementById("catImage").appendChild(costume);
                 });
                 
             });
@@ -88,9 +88,35 @@ function loadInfo(){
         document.getElementById("catImage").style.backgroundSize = result.catImageSize;
 
         getCostume(result.catId, result.catImageSize).then(costume => {
-            document.getElementById("cat").appendChild(costume);
+            document.getElementById("catImage").appendChild(costume);
         });
     });
 }
 
 loadInfo();
+
+
+document.getElementsByClassName("changeCostume")[0].addEventListener("click", function() {
+    var file = document.getElementById("file").files[0];
+    var formData = new FormData();
+    formData.append("file", file);
+
+    if (!file) {
+        addWarning("Please select a file");
+        return;
+    }
+
+    // Create a FileReader to read the file
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+        var arrayBuffer = event.target.result;
+        var uint8Array = new Uint8Array(arrayBuffer);
+        var binaryString = String.fromCharCode.apply(null, uint8Array);
+        var base64EncodedString = btoa(binaryString);
+        console.log(base64EncodedString);
+    };
+    
+    reader.readAsArrayBuffer(file);
+
+});
