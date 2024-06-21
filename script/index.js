@@ -1,3 +1,40 @@
+function addWarning(message){
+    if (document.getElementsByClassName("warning").length > 0) return;
+    var warning = document.createElement("p");
+    warning.innerHTML = "<img src='./warning.png' width=10> <div class='text'>" + message + "</div>";
+    warning.classList.add("warning");
+    document.getElementsByClassName("border-box")[0].prepend(warning);
+
+    setTimeout(() => {
+        warning.style.opacity = 0;
+        setTimeout(() => {
+            warning.remove();
+        }, 2000);
+    }, 5000);
+}
+
+async function getCostume(id, size) {
+    try {
+        const response = await fetch("http://localhost:1300/search?name=" + id);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        if (data["children"].length == 0) return null;
+
+        var costume = document.createElement("div");
+        costume.style.backgroundImage = "url('" + "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png" + "')";
+        costume.className = "cat";
+        costume.style.backgroundSize = size;
+        return costume;
+    } catch (error) {
+        addWarning("The Costume Server seems to be down. Costumes will not be displayed. Please try again later");
+        return null; // Return null or appropriate error handling
+    }
+}
+
+
+
 document.getElementById("getID").addEventListener("click", function() {
     fetch("https://catwar.su/")
     .then(response => response.text())
@@ -33,6 +70,11 @@ document.getElementById("getID").addEventListener("click", function() {
                     "catImageSrc": src,
                     "catImageSize": size
                 });
+
+                getCostume(id, size).then(costume => {
+                     document.getElementById("cat").appendChild(costume);
+                });
+                
             });
         });
     });
@@ -44,6 +86,10 @@ function loadInfo(){
         document.getElementById("catID").innerText = "ID: " + result.catId;
         document.getElementById("catImage").style.backgroundImage = "url('" + result.catImageSrc + "')";
         document.getElementById("catImage").style.backgroundSize = result.catImageSize;
+
+        getCostume(result.catId, result.catImageSize).then(costume => {
+            document.getElementById("cat").appendChild(costume);
+        });
     });
 }
 

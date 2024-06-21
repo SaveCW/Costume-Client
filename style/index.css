@@ -16,7 +16,7 @@ hr {
 
 }
 
-#catImage {
+.cat {
     background-color: transparent;
     background-repeat: no-repeat;
     border: none;
@@ -65,4 +65,26 @@ hr {
 #catID {
     margin-top: 5px;
     font-size: 12px;
+}
+
+.warning {
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 86vw;
+    transition: all 2s;
+}
+
+.warning img {
+    width: 50px; /* Example width, adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.warning .text {
+    flex-grow: 1;
+    text-align: center;
 }
