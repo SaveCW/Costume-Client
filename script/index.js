@@ -1,16 +1,23 @@
-function addWarning(message){
-    if (document.getElementsByClassName("warning").length > 0) return;
+function addWarning(message, timeout = 15000){
+    // Remove any existing warnings
+    var existingWarnings = document.getElementsByClassName("warning");
+    while (existingWarnings.length > 0) {
+        existingWarnings[0].remove();
+    }
+
+    // Create and add the new warning
     var warning = document.createElement("p");
     warning.innerHTML = "<img src='./warning.png' width=10> <div class='text'>" + message + "</div>";
     warning.classList.add("warning");
     document.getElementsByClassName("border-box")[0].prepend(warning);
 
+    // Fade out and remove the warning after a timeout
     setTimeout(() => {
         warning.style.opacity = 0;
         setTimeout(() => {
             warning.remove();
         }, 2000);
-    }, 15000);
+    }, timeout);
 }
 
 async function getCostume(id, size) {
@@ -102,7 +109,7 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
     formData.append("file", file);
 
     if (!file) {
-        addWarning("Please select a file");
+        addWarning("Please select a file", 5000);
         return;
     }
 
