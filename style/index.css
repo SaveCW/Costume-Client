@@ -93,6 +93,17 @@ hr {
     text-align: center;
 }
 
+
+.content {
+    align-items: center;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    width: 86vw;
+    transition: all 2s;
+}
+
 .changeCostume {
     background-color: #FF5964;
     border: none;

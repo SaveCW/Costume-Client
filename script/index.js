@@ -41,6 +41,50 @@ async function getCostume(id, size) {
 }
 
 
+function setStatus(statusText, option) {
+    var status = document.getElementById("uploadstatus");
+
+    // Check if an element with class 'content' exists within 'status'
+    var existingContent = status.querySelector('.content');
+    if (existingContent) {
+        status.removeChild(existingContent); // Remove existing 'content' to cancel any ongoing operations
+    }
+
+    // Create a new 'content' element
+    var content = document.createElement("div");
+    content.className = "content";
+    status.appendChild(content); // Append 'content' to 'status'
+
+    content.innerHTML = "";
+    status.style.opacity = 1; // Apply opacity transition to 'status' if needed
+
+    switch (option) {
+        case "success":
+            content.style.backgroundColor = "green";
+            content.style.color = "white";
+            break;
+        case "warning":
+            content.style.backgroundColor = "orange";
+            content.style.color = "black";
+            break;
+        case "error":
+            content.style.backgroundColor = "red";
+            content.style.color = "white";
+            break;
+    }
+
+    content.innerText = statusText;
+
+    setTimeout(() => {
+        content.style.opacity = 0;
+        setTimeout(() => {
+            content.style.backgroundColor = "transparent";
+            content.innerHTML = "";
+        }, 2000);
+    }, 5000);
+}
+
+
 
 document.getElementById("getID").addEventListener("click", function() {
     fetch("https://catwar.su/")
@@ -67,7 +111,6 @@ document.getElementById("getID").addEventListener("click", function() {
                 var catImage = document.getElementById("catImage");
                 var src = "https://catwar.su" + result[0].result.src;
                 var size = result[0].result.size;
-
                 catImage.style.backgroundImage = "url('" + src + "')";
                 catImage.style.backgroundSize = size;
 
@@ -103,27 +146,56 @@ function loadInfo(){
 loadInfo();
 
 
+// ##############
+
+
 document.getElementsByClassName("changeCostume")[0].addEventListener("click", function() {
-    var file = document.getElementById("file").files[0];
-    var formData = new FormData();
-    formData.append("file", file);
+    chrome.storage.local.get(["catId", "catImageSrc", "catImageSize"], function(result){
+        var file = document.getElementById("file").files[0];
+        var formData = new FormData();
+        formData.append("file", file);
 
-    if (!file) {
-        addWarning("Please select a file", 5000);
-        return;
-    }
+        if (!file) {
+            setStatus("Please select a file", "warning");
+            return;
+        }
 
-    // Create a FileReader to read the file
-    var reader = new FileReader();
+        // Create a FileReader to read the file
+        var reader = new FileReader();
 
-    reader.onload = function(event) {
-        var arrayBuffer = event.target.result;
-        var uint8Array = new Uint8Array(arrayBuffer);
-        var binaryString = String.fromCharCode.apply(null, uint8Array);
-        var base64EncodedString = btoa(binaryString);
-        console.log(base64EncodedString);
-    };
-    
-    reader.readAsArrayBuffer(file);
+        reader.onload = function(event) {
+            var arrayBuffer = event.target.result;
+            var uint8Array = new Uint8Array(arrayBuffer);
+            var binaryString = String.fromCharCode.apply(null, uint8Array);
+            var base64EncodedString = btoa(binaryString);
+            var id = parseInt(result.catId)
+            fetch("http://localhost:1300/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json', // Ensure this header is set
+                },
+                body: JSON.stringify({ // Ensure the body is a string
+                    name: id,
+                    imgdata: base64EncodedString
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    setStatus("The costume has been successfully changed!", "success");
+                    getCostume(result.catId, result.catImageSize).then(costume => {
+                        if (document.querySelector(".cat").querySelector("div") !== null) {
+                            document.querySelector(".cat").querySelector("div").remove();
+                        }
+                        document.getElementById("catImage").appendChild(costume);
+                    });
+                }
+                else {
+                    setStatus("There was an error changing the costume. Please try again later", "error");
+                }
+            })
+        };
+        
+        reader.readAsArrayBuffer(file);
+    });
 
 });
