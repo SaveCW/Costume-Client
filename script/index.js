@@ -193,6 +193,9 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                     setStatus("There was an error changing the costume. Please try again later", "error");
                 }
             })
+            .catch(err => {
+                setStatus("There was an error changing the costume. Please try again later", "error");
+            })
         };
         
         reader.readAsArrayBuffer(file);
