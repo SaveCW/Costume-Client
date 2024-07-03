@@ -1,14 +1,17 @@
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Sample</title>
     <link rel="stylesheet" type="text/css" href="./style/index.css">
     <script defer src="./script/index.js"></script>
+    <script defer src="./script/languages.js"></script>
   </head>
   <body>
     <div class="border-box">
-      <h2>&#9881; Costume Client</h2>
+      <h2 id="title">&#9881; Costume Client</h2>
       <hr>
-      <div class="catTitle">My Cat: 
+      <div class="catTitle">
+        <div id="catTitle">My Cat: </div>
         <div id="catID"></div>
       </div>
       <br>
@@ -20,19 +23,26 @@
       <br>
       <br>
       <hr>
-      <div class="catTitle">Change Costume: 
-        <div class="note">Note: Make sure your image is 100x150 for best results</div>
+      <div class="catTitle">
+        <div id="changeTitle">Change Costume: </div>
+        <div class="note" id="note">Note: Make sure your image is 100x150 for best results</div>
       </div>
 
-      <!-- Make image file upload -->
       <input type="file" id="file" accept="image/png">
       <br>
       <br>
 
-      <button class="changeCostume">Upload Costume</button>
+      <button class="changeCostume" id="changeCostume">Upload Costume</button>
 
       <div id="uploadstatus">
         <div class="content"></div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn"><img src="./english.png"></button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#" id="russian"><img src="./russian.png"> Русский</a>
+          <a href="#" id="english"><img src="./english.png"> English</a>
+        </div>
       </div>
     </div>
   </body>

@@ -11,11 +11,23 @@ function addWarning(message, timeout = 15000){
     warning.classList.add("warning");
     document.getElementsByClassName("border-box")[0].prepend(warning);
 
+    warning.addEventListener("click", function() {
+        warning.style.opacity = 0;
+        setTimeout(() => {
+            warning.remove();
+            // Remove listener
+            warning.removeEventListener("click", function() {});
+        }, 2000);
+    });
+
+
+
     // Fade out and remove the warning after a timeout
     setTimeout(() => {
         warning.style.opacity = 0;
         setTimeout(() => {
             warning.remove();
+            warning.removeEventListener("click", function() {});
         }, 2000);
     }, timeout);
 }
@@ -35,7 +47,9 @@ async function getCostume(id, size) {
         costume.style.backgroundSize = size;
         return costume;
     } catch (error) {
-        addWarning("The Costume Server seems to be down. Costumes will not be displayed. Please try again later");
+        chrome.storage.local.get("langdata", function(result) {
+            addWarning(result["langdata"]["costumeServerDown"]);
+        });
         return null; // Return null or appropriate error handling
     }
 }
@@ -138,7 +152,8 @@ function loadInfo(){
         document.getElementById("catImage").style.backgroundSize = result.catImageSize;
 
         getCostume(result.catId, result.catImageSize).then(costume => {
-            document.getElementById("catImage").appendChild(costume);
+            if (costume !== null)
+                document.getElementById("catImage").appendChild(costume);
         });
     });
 }
@@ -151,12 +166,15 @@ loadInfo();
 
 document.getElementsByClassName("changeCostume")[0].addEventListener("click", function() {
     chrome.storage.local.get(["catId", "catImageSrc", "catImageSize"], function(result){
+
         var file = document.getElementById("file").files[0];
         var formData = new FormData();
         formData.append("file", file);
 
         if (!file) {
-            setStatus("Please select a file", "warning");
+            chrome.storage.local.get("langdata", function(result) {
+                setStatus(result["langdata"]["selectFile"], "warning");
+            });
             return;
         }
 
@@ -169,33 +187,35 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
             var binaryString = String.fromCharCode.apply(null, uint8Array);
             var base64EncodedString = btoa(binaryString);
             var id = parseInt(result.catId)
-            fetch("http://localhost:1300/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json', // Ensure this header is set
-                },
-                body: JSON.stringify({ // Ensure the body is a string
-                    name: id,
-                    imgdata: base64EncodedString
+            chrome.storage.local.get("langdata", function(translation) {
+                fetch("http://localhost:1300/", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json', // Ensure this header is set
+                    },
+                    body: JSON.stringify({ // Ensure the body is a string
+                        name: id,
+                        imgdata: base64EncodedString
+                    })
                 })
-            })
-            .then(response => {
-                if (response.ok) {
-                    setStatus("The costume has been successfully changed!", "success");
-                    getCostume(result.catId, result.catImageSize).then(costume => {
-                        if (document.querySelector(".cat").querySelector("div") !== null) {
-                            document.querySelector(".cat").querySelector("div").remove();
-                        }
-                        document.getElementById("catImage").appendChild(costume);
-                    });
-                }
-                else {
-                    setStatus("There was an error changing the costume. Please try again later", "error");
-                }
-            })
-            .catch(err => {
-                setStatus("There was an error changing the costume. Please try again later", "error");
-            })
+                .then(response => {
+                    if (response.ok) {
+                        setStatus(translation["langdata"]["costumeSuccesfullyChanged"], "success");
+                        getCostume(result.catId, result.catImageSize).then(costume => {
+                            if (document.querySelector(".cat").querySelector("div") !== null) {
+                                document.querySelector(".cat").querySelector("div").remove();
+                            }
+                            document.getElementById("catImage").appendChild(costume);
+                        });
+                    }
+                    else {
+                        setStatus(translation["langdata"]["costumeError"], "error");
+                    }
+                })
+                .catch(err => {
+                    setStatus(translation["langdata"]["costumeError"], "error");
+                })
+            });
         };
         
         reader.readAsArrayBuffer(file);

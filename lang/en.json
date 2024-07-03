@@ -1,0 +1,13 @@
+{
+    "title": "&#9881; Costume Client",
+    "catTitle": "My Cat: ",
+    "getID": "Fetch Your Cat",
+    "changeTitle": "Change Costume: ",
+    "note": "Note: Make sure your image is 100x150 for best results",
+    "changeCostume": "Upload Costume",
+    "selectFile": "Please select a file",
+    "costumeServerDown": "The Costume Server seems to be down. Costumes will not be displayed. Please try again later",
+    "costumeSuccesfullyChanged": "The costume has been successfully changed!",
+    "costumeError": "There was an error changing the costume. Please try again later",
+    "dpopupContent": "You are currently not in https://catwar.su/cw3 so you cannot make any changes."
+}

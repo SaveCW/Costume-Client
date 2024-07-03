@@ -1,13 +1,22 @@
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Sample</title>
     <link rel="stylesheet" type="text/css" href="./style/index.css">
+    <script defer src="./script/languages.js"></script>
   </head>
   <body>
     <div class="border-box">
-      <h2>&#9881; Costume Client</h2>
+      <h2 id="title">&#9881; Costume Client</h2> 
+      <div class="dropdown">
+        <button class="dropbtn"><img src="./english.png"></button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#" id="russian"><img src="./russian.png"> Русский</a>
+          <a href="#" id="english"><img src="./english.png"> English</a>
+        </div>
+      </div>
       <hr>
-      <h3>You are currently not in https://catwar.su/cw3 so you cannot make any changes.</h3>
+      <h3 id="dpopupContent">You are currently not in https://catwar.su/cw3 so you cannot make any changes.</h3>
     </div>
   </body>
 </html>
