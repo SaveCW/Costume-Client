@@ -151,14 +151,20 @@ body::-webkit-scrollbar-thumb:hover {
     color: white;
     background-color: transparent;
     font-size: 16px;
-    margin: 0.7rem;
+    margin: 0.8rem;
+    margin-right: -2rem;
     border: none;
     cursor: pointer;
+    transition: all 1s;
+}
+
+.dropbtn:hover {
+    margin-right: unset;
 }
 
 .dropbtn img {
     height: 33px;
-    width: 33px;
+    width: 50px;
     border-radius: 2rem;
     pointer-events: none;
     border: 1px solid black;
@@ -172,7 +178,11 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: 16px;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+}
+
+.dropbtn.dropdown-open {
+    margin-right: unset;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -183,6 +193,8 @@ body::-webkit-scrollbar-thumb:hover {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    top: 100%; /* Position the dropdown content right below the dropdown button */
+    right: 0; /* Align the dropdown content to the right */
 }
 
 /* Links inside the dropdown */
