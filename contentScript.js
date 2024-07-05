@@ -24,6 +24,7 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                 costume.style.position = "absolute";
                 catPos.appendChild(costume);
             })
+            .catch(err => { const mute = err })
         });
     }
 
@@ -62,6 +63,7 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                             costume.style.position = "absolute";
                             catPos.appendChild(costume);
                         })
+                        .catch(err => { const mute = err })
                     }
                     else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("cage_items") && node.querySelector(".d") != null){
                         // A cat has been added after sniff
@@ -81,6 +83,7 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                             costume.style.position = "absolute";
                             catPos.appendChild(costume);
                         })
+                        .catch(err => { const mute = err })
                     }
                 });
             }
