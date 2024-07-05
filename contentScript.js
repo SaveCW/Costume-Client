@@ -1,8 +1,45 @@
 console.log("contentScript.js loaded");
 
 if (window.location.href.includes("https://catwar.su/cw3")) {
+
+    function deletePreviousCostumes() {
+        const elements = document.querySelectorAll('div[data-v-59afe5e8]:not([id])');
+        const filteredElements = Array.from(elements).filter(el => el.className === '');
+        filteredElements.forEach((element) => {
+            if (element.style.backgroundImage.startsWith("http://localhost")) {
+                element.remove();
+            }
+        })
+    }
+
+    function costumeCreate(catSize, costumeURL, catPos) {
+        var costume = document.createElement("div");
+        costume.setAttribute("data-v-59afe5e8", "");
+        costume.style.backgroundSize = catSize;
+        costume.style.backgroundImage = "url('"+ costumeURL +"')"
+        costume.className = ""
+        costume.style.position = "absolute";
+
+        // Check if the same costume created already exists
+        var selector = `div[data-v-59afe5e8]`;
+        var existingElements = catPos.querySelectorAll(selector);
+
+        // Convert NodeList to Array for using array methods like .forEach more efficiently
+        Array.from(existingElements).forEach(element => {
+            if (element.style.backgroundImage.includes(costumeURL)) {
+                element.remove();
+            }
+        });
+
+        return costume
+    }
+
     function setLobbyCostumes(){
         HTMLCollection.prototype.forEach = Array.prototype.forEach;
+
+        // Clear any previous urls
+        deletePreviousCostumes()
+        // Get new costumes
         document.getElementsByClassName("cat_tooltip").forEach(function (element) {
             var catId = element.querySelector("a").getAttribute("href").replace("/cat", "");
             var cat = element.closest(".cat")
@@ -16,12 +53,8 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
             .then(data => {
                 if (data["children"].length == 0) return;
                 var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
-                console.log("URL: " + costumeURL)
-                var costume = document.createElement("div");
-                costume.setAttribute("data-v-59afe5e8", "");
-                costume.style.backgroundSize = catSize;
-                costume.style.backgroundImage = "url('"+ costumeURL +"')"
-                costume.style.position = "absolute";
+                // console.log("URL: " + costumeURL)
+                var costume = costumeCreate(catSize, costumeURL, catPos)
                 catPos.appendChild(costume);
             })
             .catch(err => { const mute = err })
@@ -55,12 +88,8 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                         .then(data => {
                             if (data["children"].length == 0) return;
                             var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
-                            console.log("URL: " + costumeURL)
-                            var costume = document.createElement("div");
-                            costume.setAttribute("data-v-59afe5e8", "");
-                            costume.style.backgroundSize = catsize;
-                            costume.style.backgroundImage = "url('"+ costumeURL +"')"
-                            costume.style.position = "absolute";
+                            // console.log("URL: " + costumeURL)
+                            var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
                         })
                         .catch(err => { const mute = err })
@@ -74,13 +103,10 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                         .then(response => response.json())
                         .then(data => {
                             if (data["children"].length == 0) return;
+
                             var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
-                            console.log("URL: " + costumeURL)
-                            var costume = document.createElement("div");
-                            costume.setAttribute("data-v-59afe5e8", "");
-                            costume.style.backgroundSize = catsize;
-                            costume.style.backgroundImage = "url('"+ costumeURL +"')"
-                            costume.style.position = "absolute";
+                            // console.log("URL: " + costumeURL)
+                            var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
                         })
                         .catch(err => { const mute = err })
