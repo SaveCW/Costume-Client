@@ -58,6 +58,13 @@ function translateText(lang) {
         // Save on localstorage
         chrome.storage.local.set({"langdata": data});
     });
+
+    // Send request to contentScript to change the text
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {message:"languageChange", language:lang}, function(response) {
+            // console.log(response);
+        });
+    });
 }
 
 

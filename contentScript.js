@@ -131,3 +131,21 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
 
     observer3.observe(document.getElementById("cages_div"), { attributes: true, attributeFilter: ["style"] });
 }
+
+else if (window.location.href.includes("http://localhost:1300/")){
+    // We are in our server page
+    chrome.storage.local.get(['language'], function(result) {
+        localStorage.setItem("language", result["language"]);
+    });
+
+    // Listen from popup for language change to change language
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+            if (request.message === "languageChange") {
+                localStorage.setItem("language", request.language);
+                // Dispatch custom event
+                window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: request.language } }));
+            }
+        }
+    );
+}

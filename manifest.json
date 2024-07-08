@@ -24,7 +24,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://catwar.su/cw3/*"],
+      "matches": ["https://catwar.su/cw3/*", "http://localhost:1300/"],
       "js": ["contentScript.js"],
       "run_at": "document_idle"
     }
