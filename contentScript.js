@@ -4,9 +4,10 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
 
     function deletePreviousCostumes() {
         const elements = document.querySelectorAll('div[data-v-59afe5e8]:not([id])');
-        const filteredElements = Array.from(elements).filter(el => el.className === '');
+        const filteredElements = Array.from(elements).filter(el => el.className === '')
         filteredElements.forEach((element) => {
-            if (element.style.backgroundImage.startsWith("http://localhost")) {
+            const url = element.style.backgroundImage.replace(/url\("([^"]+)"\)/, '$1');
+            if (url.startsWith("http://localhost")) {
                 element.remove();
             }
         })
@@ -130,6 +131,17 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
     });
 
     observer3.observe(document.getElementById("cages_div"), { attributes: true, attributeFilter: ["style"] });
+
+
+    // Await for any costume changes
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+            if (request.message === "updateCostume") {
+                setLobbyCostumes()
+            }
+            // console.log(request)
+        }
+    );
 }
 
 else if (window.location.href.includes("http://localhost:1300/")){
