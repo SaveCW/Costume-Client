@@ -7,7 +7,7 @@ function addWarning(message, timeout = 15000){
 
     // Create and add the new warning
     var warning = document.createElement("p");
-    warning.innerHTML = "<img src='./warning.png' width=10> <div class='text'>" + message + "</div>";
+    warning.innerHTML = "<img src='.//images/warning.png' width=10> <div class='text'>" + message + "</div>";
     warning.classList.add("warning");
     document.getElementsByClassName("border-box")[0].prepend(warning);
 
@@ -208,8 +208,14 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                             document.getElementById("catImage").appendChild(costume);
                             // Send request to contentScript to update the costume
                             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                                chrome.tabs.sendMessage(tabs[0].id, {message:"updateCostume"}, function(response) {
-                                    // console.log(response);
+                                var queryTabId = tabs[0].id; // Renamed to avoid shadowing
+                                chrome.tabs.onUpdated.addListener(function updated(tabId, changeInfo, tab) {
+                                    if (queryTabId === tab.id && changeInfo.status === 'complete') {
+                                        chrome.tabs.sendMessage(queryTabId, {message: "updateCostume"}, function(response) {
+                                            // console.log(response);
+                                        });
+                                        chrome.tabs.onUpdated.removeListener(updated); // Remove listener to avoid multiple injections
+                                    }
                                 });
                             });
                         });

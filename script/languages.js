@@ -61,6 +61,9 @@ function translateText(lang) {
 
     // Send request to contentScript to change the text
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        if (tabs[0].url.includes("http://localhost:1300/") == false) {
+            return;
+        }
         chrome.tabs.sendMessage(tabs[0].id, {message:"languageChange", language:lang}, function(response) {
             // console.log(response);
         });
@@ -74,22 +77,22 @@ chrome.storage.local.get("language", function(result) {
 
     switch (language) {
         case "ru":
-            document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./russian.png";
+            document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./images/russian.png";
             translateText("ru");
             break;
         case "en":
-            document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./english.png";
+            document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./images/english.png";
             translateText("en");
             break;
         default:
             // Check default language
             const defaultLanguage = navigator.language;
             if (defaultLanguage.includes("ru")) {
-                document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./russian.png";
+                document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./images/russian.png";
                 translateText("ru");
                 chrome.storage.local.set({"language": "ru"});
             } else {
-                document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./english.png";
+                document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./images/english.png";
                 translateText("en");
                 chrome.storage.local.set({"language": "en"});
             }
