@@ -138,8 +138,14 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
         function(request, sender, sendResponse) {
             if (request.message === "updateCostume") {
                 setLobbyCostumes()
+                sendResponse("Successfully changed costumes");
+                return true;
             }
             // console.log(request)
+            if (request.message === "languageChange") {
+                sendResponse("Cannot change In this URL")
+                return true;
+            }
         }
     );
 }
@@ -157,6 +163,8 @@ else if (window.location.href.includes("http://localhost:1300/")){
                 localStorage.setItem("language", request.language);
                 // Dispatch custom event
                 window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: request.language } }));
+                sendResponse({status: "Language changed successfully"});
+                return true;
             }
         }
     );

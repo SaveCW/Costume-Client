@@ -136,7 +136,8 @@ document.getElementById("getID").addEventListener("click", function() {
                 });
 
                 getCostume(id, size).then(costume => {
-                     document.getElementById("catImage").appendChild(costume);
+                    if (costume !== null)
+                        document.getElementById("catImage").appendChild(costume);
                 });
                 
             });
