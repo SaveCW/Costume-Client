@@ -5,6 +5,7 @@
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="./style/main.css">
     <script defer src="./script/languages.js"></script>
+    <script defer src="./script/main.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,20 +16,23 @@
               <a href="#" id="english"><img src="./images/english.png"> English</a>
             </div>
         </div>
-        <h2>Login</h2>
-        <form>
+        <h2>#SaveCW Costumes Login</h2>
+        <div id="field">
+            <div class="form-group">
+                <button id="getInfo">Automatically get Info</button>
+            </div>
             <div class="form-group">
                 <label for="id">ID</label>
                 <input type="text" id="id" name="id" placeholder="Enter your ID">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password">
+                <label for="username">Username</label>
+                <input type="username" id="username" name="username" placeholder="Enter your username">
             </div>
             <div class="form-group">
-                <button type="submit">Login</button>
+                <button type="submit" id="submit">Next</button>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 </html>
