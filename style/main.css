@@ -3,11 +3,8 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    width: 300px;
-    height: 300px;
-    display: flex;
+    width: 330px;
+    height: 330px;
     justify-content: center;
     align-items: center;
     background-color: #FFFFFF;
@@ -15,11 +12,11 @@ body {
 }
 
 .container {
-    width: 280px; /* Adjusted width to fit within the body */
-    padding: 10px; /* Adjusted padding for better fit */
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    text-align: -webkit-center;
+    unicode-bidi: isolate;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .container h2 {
@@ -126,3 +123,31 @@ body {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+
+#status {
+    align-items: center;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    transition: all 2s;
+    text-align: center;
+}
+
+.codeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.code {
+    -moz-appearance: textfield;
+    text-align: center;
+}
+
+.code::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
