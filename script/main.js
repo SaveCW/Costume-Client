@@ -148,9 +148,11 @@ document.getElementById("submit").addEventListener("click", function() {
         console.log(response.status)
         if (response.status === 201) {
             initializeForm();
-        } else {
-            var data = response.json();
-            setError(data.message, "red");
+        } else if (response.status === 400) {
+            setError("User not found.", "red");
+        }
+        else {
+            setError("Failed to send verification code.", "red");
         }
     })
 });
