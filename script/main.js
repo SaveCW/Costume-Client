@@ -55,6 +55,88 @@ document.getElementById("submit").addEventListener("click", function() {
         status.removeChild(status.querySelector("#status"));
     }
 
+    
+    // Helper function to create and return a new element with optional properties
+    function createElement(tag, properties = {}) {
+        const element = document.createElement(tag);
+        Object.keys(properties).forEach(prop => {
+            if (prop === 'className') {
+                element.className = properties[prop];
+            } else if (prop === 'innerHTML') {
+                element.innerHTML = properties[prop];
+            } else {
+                element.setAttribute(prop, properties[prop]);
+            }
+        });
+        return element;
+    }
+
+    function createVerificationInputs(container) {
+        for (let i = 0; i < 6; i++) {
+            const input = createElement('input', {
+                type: 'number',
+                id: `code${i}`,
+                className: 'code',
+                placeholder: '0',
+                onpaste: (e) => e.preventDefault()
+            });
+            input.addEventListener('input', handleInput);
+            container.appendChild(input);
+        }
+    }
+
+    // Handle input event for code inputs
+    function handleInput() {
+        if (this.value.length > 1) {
+            this.value = this.value.slice(0, 1); // Keep only the first digit
+        }
+        // Go to next input or loop back to start
+        const next = this.nextElementSibling || this.parentElement.firstElementChild;
+        next.focus();
+        // For non-text inputs, select() won't work as expected. Consider a workaround or omit.
+    }
+    
+    // Function to handle code submission
+    function submitCode() {
+        // Assuming 'id' and 'username' are defined elsewhere in your code
+        const code = Array.from(document.querySelectorAll('.code')).map(input => input.value).join('');
+        const data = { id, username, code };
+
+        if (!code) {
+            setError("Please enter the code", "red");
+            return;
+        }
+
+        fetch("http://localhost:1300/verify", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error));
+    }
+
+    function initializeForm() {
+        const field = document.getElementById("field");
+        field.innerHTML = `<div class="form-group">
+            <label>We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below</label>
+            <div class="codeContainer"></div>
+        </div>`;
+        const codeContainer = field.querySelector('.codeContainer');
+        createVerificationInputs(codeContainer);
+    
+        const submitButton = createElement('button', {
+            innerHTML: 'Submit',
+            id: 'submitCode'
+        });
+        const buttonDiv = createElement('div', { className: 'form-group' });
+        buttonDiv.appendChild(submitButton);
+        field.appendChild(buttonDiv);
+    
+        submitButton.addEventListener("click", submitCode);
+    }
+
+
     fetch("http://localhost:1300/register", {
         method: 'POST',
         headers: {
@@ -62,86 +144,13 @@ document.getElementById("submit").addEventListener("click", function() {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json());
-
-    var field = document.getElementById("field");
-
-    field.innerHTML = "";
-
-    var div = document.createElement("div");
-    div.className = "form-group"
-
-    var label = document.createElement("label");
-    label.innerHTML = "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below";
-    div.appendChild(label);
-
-    var codeContainer = document.createElement("div");
-    codeContainer.className = "codeContainer";
-
-    for (var i = 0; i < 6; i++) {
-        var input = document.createElement("input");
-        input.type = "number";
-        input.id = "code" + i;
-        input.className = "code";
-        input.placeholder = "0";
-        // Add an event listener to restrict input length
-        input.onpaste = e => e.preventDefault();
-
-        input.addEventListener('input', function() {
-            if (this.value.length > 1) {
-                this.value = this.value.slice(0, 1); // Keep only the first digit
-
-            }
-            // Go to next input
-            var next = this.nextElementSibling;
-            if (next) {
-                next.focus();
-                next.select();
-            }
-            else {
-                // Go to start input
-                var start = this.parentElement.firstElementChild;
-                start.focus();
-                start.select();
-            }
-        });
-        codeContainer.appendChild(input);
-    }
-    div.appendChild(codeContainer);
-    field.appendChild(div);
-
-    var button_div = document.createElement("div");
-    button_div.className = "form-group";
-
-    var button = document.createElement("button");
-    button.innerText = "Submit";
-    button.id = "submitCode";
-
-    button_div.appendChild(button);
-
-    field.appendChild(button_div);
-
-
-    // Listener for code
-    document.getElementById("submitCode").addEventListener("click", function() {
-        var code = document.getElementById("code").value;
-        var data = { id: id, username: username, code: code };
-
-        if (code == "") {
-            setError("Please enter the code", "red");
-            return;
+    .then(response => response.json())
+    .then(data => {
+        if (data.status == "success") {
+            initializeForm();
         }
-
-        fetch("http://localhost:1300/verify", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-
+        else {
+            setError(data.message, "red");
+        }
     });
-
-
 });
