@@ -144,13 +144,13 @@ document.getElementById("submit").addEventListener("click", function() {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status == "success") {
+    .then(response => {
+        console.log(response.status)
+        if (response.status === 201) {
             initializeForm();
-        }
-        else {
+        } else {
+            var data = response.json();
             setError(data.message, "red");
         }
-    });
+    })
 });
