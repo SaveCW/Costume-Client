@@ -45,6 +45,9 @@ document.getElementById("submit").addEventListener("click", function() {
         return;
     }
 
+    // Replace any spaces with a html space & remove any leading or trailing spaces
+    data.username = username.trim().replaceAll(" ", "%20");
+
     // If id is not only numbers
     if (!/^\d+$/.test(id)) {
         setError("ID must be only numbers", "red");
