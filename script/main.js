@@ -89,13 +89,26 @@ document.getElementById("submit").addEventListener("click", function() {
     }
 
     // Handle input event for code inputs
-    function handleInput() {
+    function handleInput(event) {
+        console.log(event)
+
+        if (this.value == null) return;
+
+        // If the input is not a number, clear the input
+        if (!/^\d$/.test(event.data)) {
+            // Prevent it from being added
+            this.value = "";
+            return;
+        }
+
         if (this.value.length > 1) {
             this.value = this.value.slice(0, 1);
         }
+
         // Go to next input or loop back to start
         const next = this.nextElementSibling || this.parentElement.firstElementChild;
         next.focus();
+        next.select();
     }
     
     // Function to handle code submission
