@@ -91,19 +91,18 @@ document.getElementById("submit").addEventListener("click", function() {
     // Handle input event for code inputs
     function handleInput() {
         if (this.value.length > 1) {
-            this.value = this.value.slice(0, 1); // Keep only the first digit
+            this.value = this.value.slice(0, 1);
         }
         // Go to next input or loop back to start
         const next = this.nextElementSibling || this.parentElement.firstElementChild;
         next.focus();
-        // For non-text inputs, select() won't work as expected. Consider a workaround or omit.
     }
     
     // Function to handle code submission
     function submitCode() {
         // Assuming 'id' and 'username' are defined elsewhere in your code
         const code = Array.from(document.querySelectorAll('.code')).map(input => input.value).join('');
-        const data = { id, username, code };
+        const data = { id: id, code: code };
 
         if (!code) {
             setError("Please enter the code", "red");
@@ -115,8 +114,21 @@ document.getElementById("submit").addEventListener("click", function() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error));
+        .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+                // Get session token from the response
+            } else if (response.status === 401) {
+                setError("Invalid code.", "red");
+            } else if (response.status === 400) {
+                setError("Code has expired. Please try to relogin.", "red");
+            } else if (response.status === 404) {
+                setError("User not found.", "red");
+            }
+            else {
+                setError("Failed to send verification code.", "red");
+            }
+        })
     }
 
     function initializeForm() {
@@ -149,7 +161,7 @@ document.getElementById("submit").addEventListener("click", function() {
     })
     .then(response => {
         console.log(response.status)
-        if (response.status === 201) {
+        if (response.status === 200) {
             initializeForm();
         } else if (response.status === 400) {
             setError("User not found.", "red");
