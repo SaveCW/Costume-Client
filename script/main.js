@@ -179,6 +179,9 @@ document.getElementById("submit").addEventListener("click", function() {
         } else if (response.status === 400) {
             setError("User not found.", "red");
         }
+        else if (response.status === 403) {
+            setError("Information is invalid.", "red");
+        }
         else {
             setError("Failed to send verification code.", "red");
         }
