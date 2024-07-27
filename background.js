@@ -18,6 +18,18 @@ function updateIconForTab(tab) {
     }
 }
 
+function checkifLoggedIn() {
+    // Check if we have express session cookie on localhost:1300
+    chrome.cookies.get({ url: "http://localhost:1300", name: "connect.sid" }, cookie => {
+        if (cookie) {
+            loggedin = true
+        }
+        else {
+            loggedin = false
+        }
+    });
+}
+
 // Listen for tab updates
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     // Check if the tab is completed loading to avoid multiple triggers

@@ -124,13 +124,14 @@ document.getElementById("submit").addEventListener("click", function() {
 
         fetch("http://localhost:1300/verify", {
             method: 'POST',
+            credentials: 'include', // Include credentials (cookies) in the request
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         })
         .then(response => {
             console.log(response.status)
             if (response.status === 200) {
-                // Get session token from the response
+                return response.json(); // Parse the JSON response
             } else if (response.status === 401) {
                 setError("Invalid code.", "red");
             } else if (response.status === 400) {
@@ -142,6 +143,7 @@ document.getElementById("submit").addEventListener("click", function() {
                 setError("Failed to send verification code.", "red");
             }
         })
+        .catch(error => console.error('Error:', error));
     }
 
     function initializeForm() {
