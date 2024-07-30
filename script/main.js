@@ -106,7 +106,7 @@ document.getElementById("submit").addEventListener("click", function() {
         }
 
         // Go to next input or loop back to start
-        const next = this.nextElementSibling || this.parentElement.firstElementChild;
+        const next = this.nextElementSibling || null;
         next.focus();
         next.select();
     }
@@ -131,7 +131,13 @@ document.getElementById("submit").addEventListener("click", function() {
         .then(response => {
             console.log(response.status)
             if (response.status === 200) {
-                return response.json(); // Parse the JSON response
+                // Verify complete and user is logged in Reload the page
+                setError("Verification complete", "green");
+                setTimeout(() => {
+                    // Run function in backgroundjs 
+                    chrome.runtime.sendMessage({ action: "loggedinreload" });
+                    window.close();
+                }, 2000);
             } else if (response.status === 401) {
                 setError("Invalid code.", "red");
             } else if (response.status === 400) {
