@@ -23,7 +23,7 @@ function setError(message, color){
     status.appendChild(div);
 
     // Resize popup
-    document.body.style.height = "fit-content";
+    // document.body.style.height = "fit-content";
 
     setTimeout(() => {
         div.style.opacity = 0;
@@ -33,6 +33,14 @@ function setError(message, color){
         }, 2000);
     }, 2000);
 }
+
+chrome.storage.local.get("state", function(result) {
+    if (result.state && result.state.status === "verify") {
+        document.getElementById("id").value = result.state.id;
+        document.getElementById("username").value = result.state.username;
+        document.getElementById("submit").click();
+    }
+});
 
 document.getElementById("submit").addEventListener("click", function() {
     var id = document.getElementById("id").value;
@@ -138,6 +146,9 @@ document.getElementById("submit").addEventListener("click", function() {
                     // Run function in backgroundjs 
                     chrome.runtime.sendMessage({ action: "loggedinreload" }, response => {
                         if (response && response.success) {
+                            // Delete the state
+                            chrome.storage.local.remove("state");
+
                             // Close the popup
                             window.close();
                         }
@@ -167,8 +178,10 @@ document.getElementById("submit").addEventListener("click", function() {
         field.innerHTML = `<div class="form-group">
             <label>We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below</label>
             <div class="codeContainer"></div>
+            <button id="back">&larr; Back</button>
         </div>`;
         const codeContainer = field.querySelector('.codeContainer');
+        const backButton = field.querySelector('#back');
         createVerificationInputs(codeContainer);
     
         const submitButton = createElement('button', {
@@ -180,28 +193,45 @@ document.getElementById("submit").addEventListener("click", function() {
         field.appendChild(buttonDiv);
     
         submitButton.addEventListener("click", submitCode);
+        backButton.addEventListener("click", () => {
+            // Remove the state
+            chrome.storage.local.remove("state");
+            location.reload();
+        });
+
+
+        // Save state for later use
+        chrome.storage.local.set({ state: {status: "verify", id: id, username: username} });
     }
 
-
-    fetch("http://localhost:1300/register", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        console.log(response.status)
-        if (response.status === 200) {
+    // Check if we have a state
+    chrome.storage.local.get("state", function(result) {
+        if (result.state && result.state.status === "verify") {
+            // If we have a state, initialize the form
             initializeForm();
-        } else if (response.status === 400) {
-            setError("User not found.", "red");
-        }
-        else if (response.status === 403) {
-            setError("Information is invalid.", "red");
         }
         else {
-            setError("Failed to send verification code.", "red");
+            fetch("http://localhost:1300/register", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log(response.status)
+                if (response.status === 200) {
+                    initializeForm();
+                } else if (response.status === 400) {
+                    setError("User not found.", "red");
+                }
+                else if (response.status === 403) {
+                    setError("Information is invalid.", "red");
+                }
+                else {
+                    setError("Failed to send verification code.", "red");
+                }
+            })
         }
-    })
+    });
 });
