@@ -1,7 +1,6 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
-
 body {
     width: 330px;
     height: 330px;

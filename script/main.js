@@ -123,7 +123,9 @@ document.getElementById("submit").addEventListener("click", function() {
     // Function to handle code submission
     function submitCode() {
         // Assuming 'id' and 'username' are defined elsewhere in your code
-        const code = Array.from(document.querySelectorAll('.code')).map(input => input.value).join('');
+        const code = Array.from(document.querySelectorAll('.code'))
+                    .map(input => input.value === '' ? '0' : input.value)
+                    .join('');
         const data = { id: id, code: code };
 
         if (!code) {
@@ -159,10 +161,12 @@ document.getElementById("submit").addEventListener("click", function() {
                     });
                     // window.close();
                 }, 2000);
-            } else if (response.status === 401) {
-                setError("Invalid code.", "red");
             } else if (response.status === 400) {
                 setError("Code has expired. Please try to relogin.", "red");
+            } else if (response.status === 401) {
+                setError("Information is Invalid.", "red");
+            } else if (response.status === 403) {
+                setError("Invalid code.", "red");
             } else if (response.status === 404) {
                 setError("User not found.", "red");
             }
@@ -222,7 +226,8 @@ document.getElementById("submit").addEventListener("click", function() {
                 console.log(response.status)
                 if (response.status === 200) {
                     initializeForm();
-                } else if (response.status === 400) {
+                } 
+                else if (response.status === 400) {
                     setError("User not found.", "red");
                 }
                 else if (response.status === 403) {
