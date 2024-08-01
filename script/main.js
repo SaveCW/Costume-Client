@@ -107,6 +107,7 @@ document.getElementById("submit").addEventListener("click", function() {
 
         // Go to next input or loop back to start
         const next = this.nextElementSibling || null;
+        if (!next) return;
         next.focus();
         next.select();
     }
@@ -135,8 +136,17 @@ document.getElementById("submit").addEventListener("click", function() {
                 setError("Verification complete", "green");
                 setTimeout(() => {
                     // Run function in backgroundjs 
-                    chrome.runtime.sendMessage({ action: "loggedinreload" });
-                    window.close();
+                    chrome.runtime.sendMessage({ action: "loggedinreload" }, response => {
+                        if (response && response.success) {
+                            // Close the popup
+                            window.close();
+                        }
+                        else {
+                            console.log(response)
+                            setError("Failed to reload the page. Please close the window.", "red");
+                        }
+                    });
+                    // window.close();
                 }, 2000);
             } else if (response.status === 401) {
                 setError("Invalid code.", "red");

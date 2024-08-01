@@ -39,10 +39,14 @@ chrome.tabs.onActivated.addListener(activeInfo => {
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "loggedinreload") {
-        // Reload the page
         // Get active tab
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+            console.log("Tab: ", tabs[0]);
             updateIconForTab(tabs[0]);
+
+            // Reload the page
+            sendResponse({ success: true });
         });
+        return true;
     }
 });

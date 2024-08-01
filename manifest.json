@@ -22,7 +22,8 @@
     "http://localhost:1300/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "persistent": true
   },
   "content_scripts": [
     {
