@@ -48,6 +48,12 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.form-group button:disabled {
+    background-color: #ff9199;
+    cursor: not-allowed;
 }
 
 /* Dropdown Languages */
@@ -168,4 +174,9 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.form-group button:hover, #back:hover {
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
 }

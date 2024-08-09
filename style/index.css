@@ -53,10 +53,6 @@ hr {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-#getID:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
 .catTitle {
     color: black;
     font-size: 16px;
@@ -124,7 +120,7 @@ hr {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.changeCostume:hover {
+.changeCostume:hover, #getID:hover, #logout:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -243,8 +239,4 @@ body::-webkit-scrollbar-thumb:hover {
     right: 0;
     transition: box-shadow 0.3s ease-in-out;
 
-}
-
-#logout:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

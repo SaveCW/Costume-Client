@@ -10,6 +10,22 @@ document.getElementById("getInfo").addEventListener("click", function() {
     });
 });
 
+function getContrastingTextColor(hexColor) {
+    // Remove the hash at the start if it's there
+    hexColor = hexColor.replace('#', '');
+
+    // Parse the r, g, b values
+    var r = parseInt(hexColor.substring(0, 2), 16);
+    var g = parseInt(hexColor.substring(2, 4), 16);
+    var b = parseInt(hexColor.substring(4, 6), 16);
+
+    // Calculate the luminance
+    var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    // Return black for light backgrounds and white for dark backgrounds
+    return luminance > 0.5 ? '#000000' : '#FFFFFF';
+}
+
 function setError(message, color){
     var status = document.getElementsByClassName("statusContainer")[0];
     if (status.querySelector("#status") != null) {
@@ -21,6 +37,9 @@ function setError(message, color){
     div.style.backgroundColor = color;
     div.innerText = message;
     status.appendChild(div);
+
+    // Pick good hex color for text for color given 
+    div.style.color = getContrastingTextColor(color);
 
     // Resize popup
     // document.body.style.height = "fit-content";
@@ -133,6 +152,9 @@ document.getElementById("submit").addEventListener("click", function() {
             return;
         }
 
+        // Block more presses
+        document.getElementById("submitCode").disabled = "true"
+
         fetch("http://localhost:1300/verify", {
             method: 'POST',
             credentials: 'include', // Include credentials (cookies) in the request
@@ -157,6 +179,8 @@ document.getElementById("submit").addEventListener("click", function() {
                         else {
                             console.log(response)
                             setError("Failed to reload the page. Please close the window.", "red");
+                            // Delete the state
+                            chrome.storage.local.remove("state");
                         }
                     });
                     // window.close();
@@ -172,6 +196,10 @@ document.getElementById("submit").addEventListener("click", function() {
             }
             else {
                 setError("Failed to send verification code.", "red");
+            }
+
+            if (response.status != 200) {
+                document.getElementById("submitCode").disabled = ""
             }
         })
         .catch(error => console.error('Error:', error));
