@@ -15,12 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
             var dropdowns = document.getElementsByClassName("dropdown-content");
             const dropBtn = document.getElementsByClassName('dropbtn')[0];
             var i;
+            // This removal solves a bug with the window resizing idk why
+            if (document.getElementById("status") != null)
+                document.getElementById("status").remove();
             for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-                dropBtn.classList.remove("dropdown-open")
-            }
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                    dropBtn.classList.remove("dropdown-open")
+                }
             }
         }
     }
@@ -35,21 +38,32 @@ document.addEventListener('DOMContentLoaded', function() {
         location.reload();
     });
 
-    function changeText(data){
-        if (document.getElementById("title") != null) 
-            document.getElementById("title").innerHTML = data["title"];
-        if (document.getElementById("catTitle") != null)
-            document.getElementById("catTitle").innerText = data["catTitle"];
-        if (document.getElementById("getID") != null)
-            document.getElementById("getID").innerText = data["getID"];
-        if (document.getElementById("changeTitle") != null)
-            document.getElementById("changeTitle").innerText = data["changeTitle"];
-        if (document.getElementById("note") != null)
-            document.getElementById("note").innerText = data["note"];
-        if (document.getElementById("changeCostume") != null)
-            document.getElementById("changeCostume").innerText = data["changeCostume"];
-        if (document.getElementById("dpopupContent") != null)
-            document.getElementById("dpopupContent").innerText = data["dpopupContent"];  
+    function elementIDExists(element) {
+        return document.getElementById(element) != null;
+    }
+    
+    function changeText(data) {
+        for (let key in data) {
+            if (key == "placeholders") {
+                for (let text in data[key]) {
+                    if (elementIDExists(text))
+                        document.getElementById(text).placeholder = data[key][text];
+                }
+            } else if (elementIDExists(key)) {
+                // Check if it has any html tags or entities and if so use innerHTML
+                if (data[key].includes("<") && data[key].includes(">")) {
+                    document.getElementById(key).innerHTML = data[key];
+                }
+                // Check if it has any special characters and if so use innerText
+                else if (data[key].includes("&")) {
+                    document.getElementById(key).innerHTML = data[key];
+                }
+                // If it doesn't have any special characters or html tags use innerText
+                else {
+                    document.getElementById(key).innerText = data[key];
+                }
+            }
+        }
     }
 
     function translateText(lang) {
@@ -76,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get current language picked
     chrome.storage.local.get("language", function(result) {
         var language = result.language;
-
         switch (language) {
             case "ru":
                 document.getElementsByClassName("dropbtn")[0].querySelector("img").src = "./images/russian.png";

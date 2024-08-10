@@ -9,5 +9,25 @@
     "costumeServerDown": "The Costume Server seems to be down. Costumes will not be displayed. Please try again later",
     "costumeSuccesfullyChanged": "The costume has been successfully changed!",
     "costumeError": "There was an error changing the costume. Please try again later",
-    "dpopupContent": "You are currently not in https://catwar.su/cw3 so you cannot make any changes."
+    "dpopupContent": "You are currently not in https://catwar.su/cw3 so you cannot make any changes.",
+    "getInfo": "Automatically get Info",
+    "loginTitle": "#SaveCW Costumes Login",
+    "usernameText": "Username",
+    "submit": "Next",
+    "fillAllInfo": "Please fill in all the fields",
+    "IDNumberError": "ID must be only numbers",
+    "enterCodeError": "Please enter the code",
+    "reloadPageError": "Failed to reload the page. Please close the window.",
+    "codeExpiredError": "Code has expired. Please try to relogin.",
+    "informationInvalidError": "Information is Invalid.",
+    "invalidCodeError": "Invalid code.",
+    "notFoundError": "User not found.",
+    "sendCodeError": "Failed to send verification code.",
+    "codeFormLabel": "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below",
+    "back": "&larr; back",
+    "submitCode": "Submit",
+    "placeholders": {
+        "username": "Enter your username",
+        "id": "Enter your ID"
+    }
 }
