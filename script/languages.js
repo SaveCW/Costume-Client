@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Send request to contentScript to change the text
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             console.log(tabs[0])
-            if (tabs[0].status === "complete"){
+            if (tabs[0].status === "complete" && tabs[0].url){
                 chrome.tabs.sendMessage(tabs[0].id, {message:"languageChange", language:lang}, function(response) {
                     // console.log(response);
                 });
