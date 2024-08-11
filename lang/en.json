@@ -22,6 +22,7 @@
     "informationInvalidError": "Information is Invalid.",
     "invalidCodeError": "Invalid code.",
     "notFoundError": "User not found.",
+    "serverError": "The server is currently down. Please try again later.",
     "sendCodeError": "Failed to send verification code.",
     "codeFormLabel": "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below",
     "back": "&larr; Back",

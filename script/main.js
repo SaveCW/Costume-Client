@@ -205,7 +205,10 @@ document.getElementById("submit").addEventListener("click", function() {
                         document.getElementById("submitCode").disabled = ""
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    setError(translation["langdata"]["serverError"], "red");
+                    document.getElementById("submitCode").disabled = ""
+                });
             });
         }
 
@@ -270,6 +273,9 @@ document.getElementById("submit").addEventListener("click", function() {
                         setError(translation["langdata"]["sendCodeError"], "red");
                     }
                 })
+                .catch(error => {
+                    setError(translation["langdata"]["serverError"], "red");
+                });
             }
         });
     });
