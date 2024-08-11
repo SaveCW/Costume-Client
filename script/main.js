@@ -158,7 +158,7 @@ document.getElementById("submit").addEventListener("click", function() {
                 // Block more presses
                 document.getElementById("submitCode").disabled = "true"
 
-                fetch("http://localhost:1300/verify", {
+                fetch("https://cat.arisamiga.rocks/verify", {
                     method: 'POST',
                     credentials: 'include', // Include credentials (cookies) in the request
                     headers: { 'Content-Type': 'application/json' },
@@ -251,7 +251,7 @@ document.getElementById("submit").addEventListener("click", function() {
                 initializeForm();
             }
             else {
-                fetch("http://localhost:1300/register", {
+                fetch("https://cat.arisamiga.rocks/register", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

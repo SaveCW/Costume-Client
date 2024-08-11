@@ -34,7 +34,7 @@ function addWarning(message, timeout = 15000){
 
 async function getCostume(id, size) {
     try {
-        const response = await fetch("http://localhost:1300/search?name=" + id);
+        const response = await fetch("https://cat.arisamiga.rocks/search?name=" + id);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -42,7 +42,7 @@ async function getCostume(id, size) {
         if (data["children"].length == 0) return null;
 
         var costume = document.createElement("div");
-        costume.style.backgroundImage = "url('" + "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png" + "')";
+        costume.style.backgroundImage = "url('" + "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png" + "')";
         costume.className = "cat";
         costume.style.backgroundSize = size;
         return costume;
@@ -191,7 +191,7 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
             var base64EncodedString = btoa(binaryString);
             var id = parseInt(result.catId)
             chrome.storage.local.get("langdata", function(translation) {
-                fetch("http://localhost:1300/", {
+                fetch("https://cat.arisamiga.rocks/", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json', // Ensure this header is set

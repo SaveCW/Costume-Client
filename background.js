@@ -3,7 +3,7 @@ var loggedin = false;
 
 // Function to update the icon based on the URL
 function updateIconForTab(tab) {
-    chrome.cookies.get({ url: "http://localhost:1300", name: "connect.sid" }, cookie => {
+    chrome.cookies.get({ url: "https://cat.arisamiga.rocks", name: "connect.sid" }, cookie => {
         if (cookie) {
             // If logged in, decide which popup to use based on the URL
             if (tab.url && tab.url.includes("https://catwar.su/cw3")) {

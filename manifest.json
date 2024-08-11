@@ -19,14 +19,14 @@
   ],
   "host_permissions": [
     "https://catwar.su/cw3/*",
-    "http://localhost:1300/*"
+    "https://cat.arisamiga.rocks/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://catwar.su/cw3/*", "http://localhost:1300/"],
+      "matches": ["https://catwar.su/cw3/*", "https://cat.arisamiga.rocks/"],
       "js": ["contentScript.js"],
       "run_at": "document_idle"
     }

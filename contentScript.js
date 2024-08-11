@@ -7,7 +7,7 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
         const filteredElements = Array.from(elements).filter(el => el.className === '')
         filteredElements.forEach((element) => {
             const url = element.style.backgroundImage.replace(/url\("([^"]+)"\)/, '$1');
-            if (url.startsWith("http://localhost")) {
+            if (url.startsWith("https://cat.arisamiga.rocks")) {
                 element.remove();
             }
         })
@@ -49,11 +49,11 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                 return;
             }
             var catSize = cat.getElementsByClassName("first")[0].style.backgroundSize;
-            fetch("http://localhost:1300/search?name=" + catId)
+            fetch("https://cat.arisamiga.rocks/search?name=" + catId)
             .then(response => response.json())
             .then(data => {
                 if (data["children"].length == 0) return;
-                var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
+                var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
                 // console.log("URL: " + costumeURL)
                 var costume = costumeCreate(catSize, costumeURL, catPos)
                 catPos.appendChild(costume);
@@ -84,11 +84,11 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                         var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
                         var catPos = node.querySelector(".d");
                         var catsize = node.getElementsByClassName("first")[0].style.backgroundSize;
-                        fetch("http://localhost:1300/search?name=" + catId)
+                        fetch("https://cat.arisamiga.rocks/search?name=" + catId)
                         .then(response => response.json())
                         .then(data => {
                             if (data["children"].length == 0) return;
-                            var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
+                            var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
                             // console.log("URL: " + costumeURL)
                             var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
@@ -100,12 +100,12 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                         var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
                         var catPos = node.querySelector(".d");
                         var catsize = node.querySelector(".first").style.backgroundSize;
-                        fetch("http://localhost:1300/search?name=" + catId)
+                        fetch("https://cat.arisamiga.rocks/search?name=" + catId)
                         .then(response => response.json())
                         .then(data => {
                             if (data["children"].length == 0) return;
 
-                            var costumeURL = "http://localhost:1300/images/" + data["children"][0]["imguuid"] + ".png";
+                            var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
                             // console.log("URL: " + costumeURL)
                             var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
@@ -150,7 +150,7 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
     );
 }
 
-else if (window.location.href.includes("http://localhost:1300/")){
+else if (window.location.href.includes("https://cat.arisamiga.rocks/")){
     // We are in our server page
     chrome.storage.local.get(['language'], function(result) {
         localStorage.setItem("language", result["language"]);
