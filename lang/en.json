@@ -24,7 +24,7 @@
     "notFoundError": "User not found.",
     "sendCodeError": "Failed to send verification code.",
     "codeFormLabel": "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below",
-    "back": "&larr; back",
+    "back": "&larr; Back",
     "submitCode": "Submit",
     "placeholders": {
         "username": "Enter your username",

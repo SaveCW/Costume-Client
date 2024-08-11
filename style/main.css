@@ -150,6 +150,8 @@ body {
 
 .code {
     -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
     text-align: center;
 }
 
