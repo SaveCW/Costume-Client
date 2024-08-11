@@ -122,6 +122,8 @@ document.getElementById("getID").addEventListener("click", function() {
                 },
                 args: [id]
             }).then(result => {
+                // Clear previous content
+                document.getElementById("catImage").innerHTML = ""
                 var catImage = document.getElementById("catImage");
                 var src = "https://catwar.su" + result[0].result.src;
                 var size = result[0].result.size;
