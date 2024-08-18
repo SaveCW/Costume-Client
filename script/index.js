@@ -120,10 +120,10 @@ document.getElementById("getID").addEventListener("click", function() {
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
             chrome.scripting.executeScript({
                 target: { tabId: tabs[0].id },
-                function: (catId) => {
+                func: (catId) => {
                     // Get character image
-                    var img = document.getElementById("cages").querySelectorAll("a[href='/cat" + catId + "']")[0].closest(".cat").querySelector(".first")
-                    return {src: img.style.backgroundImage.slice(5, -2), size: img.style.backgroundSize};
+                    var img = document.getElementById("cages").querySelectorAll("a[href='/cat" + catId + "']")[0].closest(".cat").querySelector(".first");
+                    return { src: img.style.backgroundImage.slice(5, -2), size: img.style.backgroundSize };
                 },
                 args: [id]
             }).then(result => {
