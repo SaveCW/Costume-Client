@@ -192,10 +192,17 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
         reader.onload = function(event) {
             var arrayBuffer = event.target.result;
             var uint8Array = new Uint8Array(arrayBuffer);
+            chrome.storage.local.get("langdata", function(translation) {
+            // Define the maximum limit for the length of the uint8Array
+            const MAX_UINT8ARRAY_LENGTH = 0x8000; // 32,768
+            // Check if the length of the uint8Array exceeds the limit
+            if (uint8Array.length > MAX_UINT8ARRAY_LENGTH) {
+                setStatus(translation["langdata"]["sizeError"], "error");
+                return;
+            }
             var binaryString = String.fromCharCode.apply(null, uint8Array);
             var base64EncodedString = btoa(binaryString);
             var id = parseInt(result.catId)
-            chrome.storage.local.get("langdata", function(translation) {
                 fetch("https://cat.arisamiga.rocks/", {
                     method: "POST",
                     headers: {
