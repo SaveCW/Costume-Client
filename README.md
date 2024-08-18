@@ -55,4 +55,10 @@ Contributions are very welcome! Don't hesitate to open an issue or a pull reques
 
 ## License
 
-(To be added)
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+## Privacy Policy and Privacy Policy
+[Privacy Policy](https://cat.arisamiga.rocks/guidelines) | [Terms of Service](https://cat.arisamiga.rocks/privacy)
+
+
+### This project is not affiliated with CatWar or any of its developers.
