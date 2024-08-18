@@ -3,11 +3,13 @@
 }
 body {
     width: 330px;
-    height: 330px;
+    min-height: 330px;
     justify-content: center;
     align-items: center;
     background-color: #FFFFFF;
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .container {
