@@ -61,4 +61,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 [Privacy Policy](https://cat.arisamiga.rocks/guidelines) | [Terms of Service](https://cat.arisamiga.rocks/privacy)
 
 
-### This project is not affiliated with CatWar or any of its developers.
+> This project is not affiliated with CatWar or any of its developers.
