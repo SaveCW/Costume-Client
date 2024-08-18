@@ -1,6 +1,5 @@
-console.log("Successfully Loaded #SaveCW Costume Client");
-
 if (window.location.href.includes("https://catwar.su/cw3")) {
+    console.log("Successfully Loaded #SaveCW Costume Client");
 
     function deletePreviousCostumes() {
         const elements = document.querySelectorAll('div[data-v-59afe5e8]:not([id])');
@@ -146,6 +145,8 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
 }
 
 else if (window.location.href.includes("https://cat.arisamiga.rocks/")){
+    console.log("Successfully Loaded #SaveCW Costume Client");
+
     // We are in our server page
     chrome.storage.local.get(['language'], function(result) {
         localStorage.setItem("language", result["language"]);

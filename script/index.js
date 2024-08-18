@@ -210,15 +210,29 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                             }
                             document.getElementById("catImage").appendChild(costume);
                             // Send request to contentScript to update the costume
-                            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                                var queryTabId = tabs[0].id; // Renamed to avoid shadowing
-                                chrome.tabs.onUpdated.addListener(function updated(tabId, changeInfo, tab) {
+                            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                                const queryTabId = tabs[0].id;
+                                const tab = tabs[0];
+                            
+                                // Check if the tab is already loaded
+                                if (tab.status === 'complete') {
+                                    chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
+                                        console.log(response);
+                                    });
+                                }
+                            
+                                // Add listener for future updates
+                                const updatedListener = function(tabId, changeInfo, tab) {
+                                    console.log(changeInfo);
                                     if (queryTabId === tab.id && changeInfo.status === 'complete') {
-                                        chrome.tabs.sendMessage(queryTabId, {message: "updateCostume"}, function(response) {
+                                        chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
+                                            console.log(response);
                                         });
-                                        chrome.tabs.onUpdated.removeListener(updated); // Remove listener to avoid multiple injections
+                                        chrome.tabs.onUpdated.removeListener(updatedListener); // Remove listener to avoid multiple injections
                                     }
-                                });
+                                };
+                            
+                                chrome.tabs.onUpdated.addListener(updatedListener);
                             });
                         });
                     }
