@@ -237,6 +237,5 @@ body::-webkit-scrollbar-thumb:hover {
     position: absolute;
     bottom: 0;
     right: 0;
-    transition: box-shadow 0.3s ease-in-out;
-
+    transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out;
 }

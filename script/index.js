@@ -25,6 +25,7 @@ function addWarning(message, timeout = 15000){
     // Fade out and remove the warning after a timeout
     setTimeout(() => {
         warning.style.opacity = 0;
+        logout.style.bottom = "0px";
         setTimeout(() => {
             warning.remove();
             warning.removeEventListener("click", function() {});
@@ -72,6 +73,10 @@ function setStatus(statusText, option) {
     content.innerHTML = "";
     status.style.opacity = 1; // Apply opacity transition to 'status' if needed
 
+    var logout = document.getElementById("logout");
+    
+    logout.style.bottom = "-33px";
+
     switch (option) {
         case "success":
             content.style.backgroundColor = "green";
@@ -92,6 +97,7 @@ function setStatus(statusText, option) {
     setTimeout(() => {
         content.style.opacity = 0;
         setTimeout(() => {
+            logout.style.bottom = "0px";
             content.style.backgroundColor = "transparent";
             content.innerHTML = "";
         }, 2000);
@@ -217,16 +223,16 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                                 // Check if the tab is already loaded
                                 if (tab.status === 'complete') {
                                     chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
-                                        console.log(response);
+                                        // console.log(response);
                                     });
                                 }
                             
                                 // Add listener for future updates
                                 const updatedListener = function(tabId, changeInfo, tab) {
-                                    console.log(changeInfo);
+                                    // console.log(changeInfo);
                                     if (queryTabId === tab.id && changeInfo.status === 'complete') {
                                         chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
-                                            console.log(response);
+                                            // console.log(response);
                                         });
                                         chrome.tabs.onUpdated.removeListener(updatedListener); // Remove listener to avoid multiple injections
                                     }
