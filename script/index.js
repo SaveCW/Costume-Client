@@ -73,10 +73,6 @@ function setStatus(statusText, option) {
     content.innerHTML = "";
     status.style.opacity = 1; // Apply opacity transition to 'status' if needed
 
-    var logout = document.getElementById("logout");
-    
-    logout.style.bottom = "-33px";
-
     switch (option) {
         case "success":
             content.style.backgroundColor = "green";
@@ -93,6 +89,9 @@ function setStatus(statusText, option) {
     }
 
     content.innerText = statusText;
+
+    var logout = document.getElementById("logout");
+    logout.style.bottom = -content.offsetHeight;
 
     setTimeout(() => {
         content.style.opacity = 0;
