@@ -1,4 +1,4 @@
-console.log("contentScript.js loaded");
+console.log("Successfully Loaded #SaveCW Costume Client");
 
 if (window.location.href.includes("https://catwar.su/cw3")) {
 
@@ -54,7 +54,6 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
             .then(data => {
                 if (data["children"].length == 0) return;
                 var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                // console.log("URL: " + costumeURL)
                 var costume = costumeCreate(catSize, costumeURL, catPos)
                 catPos.appendChild(costume);
             })
@@ -76,7 +75,6 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
     // Costume Apply on Cage Change
     const observer2 = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-            // console.log(mutation)
             if (mutation.type === "childList") {
                 mutation.addedNodes.forEach((node) => {
                     if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("catWithArrow")){
@@ -89,7 +87,6 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                         .then(data => {
                             if (data["children"].length == 0) return;
                             var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                            // console.log("URL: " + costumeURL)
                             var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
                         })
@@ -106,7 +103,6 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                             if (data["children"].length == 0) return;
 
                             var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                            // console.log("URL: " + costumeURL)
                             var costume = costumeCreate(catsize, costumeURL, catPos)
                             catPos.appendChild(costume);
                         })
@@ -141,7 +137,6 @@ if (window.location.href.includes("https://catwar.su/cw3")) {
                 sendResponse("Successfully changed costumes");
                 return true;
             }
-            // console.log(request)
             if (request.message === "languageChange") {
                 sendResponse("Cannot change In this URL")
                 return true;

@@ -1,5 +1,4 @@
 document.getElementById("logout").addEventListener("click", function() {
-    console.log("Logging out");
 
     // console log all cookies
     chrome.cookies.get({ url: "https://cat.arisamiga.rocks", name: "connect.sid" }, cookie => {

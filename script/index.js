@@ -215,7 +215,6 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                                 chrome.tabs.onUpdated.addListener(function updated(tabId, changeInfo, tab) {
                                     if (queryTabId === tab.id && changeInfo.status === 'complete') {
                                         chrome.tabs.sendMessage(queryTabId, {message: "updateCostume"}, function(response) {
-                                            // console.log(response);
                                         });
                                         chrome.tabs.onUpdated.removeListener(updated); // Remove listener to avoid multiple injections
                                     }

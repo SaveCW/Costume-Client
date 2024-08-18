@@ -118,7 +118,6 @@ document.getElementById("submit").addEventListener("click", function() {
 
         // Handle input event for code inputs
         function handleInput(event) {
-            console.log(event)
 
             if (this.value == null) return;
 
@@ -143,7 +142,6 @@ document.getElementById("submit").addEventListener("click", function() {
         // Function to handle code submission
         function submitCode() {
             chrome.storage.local.get("langdata", function(translation) {   
-                // console.log(translation)
                 // Assuming 'id' and 'username' are defined elsewhere in your code
                 const code = Array.from(document.querySelectorAll('.code'))
                             .map(input => input.value === '' ? '0' : input.value)
@@ -165,7 +163,6 @@ document.getElementById("submit").addEventListener("click", function() {
                     body: JSON.stringify(data),
                 })
                 .then(response => {
-                    console.log(response.status)
                     if (response.status === 200) {
                         // Verify complete and user is logged in Reload the page
                         setError("Verification complete", "green");
@@ -180,7 +177,6 @@ document.getElementById("submit").addEventListener("click", function() {
                                     window.close();
                                 }
                                 else {
-                                    console.log(response)
                                     setError(translation["langdata"]["reloadPageError"], "red");
                                     // Delete the state
                                     chrome.storage.local.remove("state");
@@ -259,7 +255,6 @@ document.getElementById("submit").addEventListener("click", function() {
                     body: JSON.stringify(data)
                 })
                 .then(response => {
-                    console.log(response.status)
                     if (response.status === 200) {
                         initializeForm();
                     } 

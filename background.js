@@ -41,7 +41,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "loggedinreload") {
         // Get active tab
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-            console.log("Tab: ", tabs[0]);
             updateIconForTab(tabs[0]);
 
             // Reload the page
