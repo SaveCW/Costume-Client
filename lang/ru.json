@@ -27,6 +27,7 @@
     "codeFormLabel": "Мы отправили <a href='https://catwar.su/ls'>ЛС</a> на ваш аккаунт, пожалуйста, введите 6-значный код ниже",
     "back": "&larr; назад",
     "submitCode": "Отправить",
+    "logout": "Выйти",
     "placeholders": {
         "username": "Введите ваше имя пользователя",
         "id": "Введите ваш ID"

@@ -27,6 +27,7 @@
     "codeFormLabel": "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below",
     "back": "&larr; Back",
     "submitCode": "Submit",
+    "logout": "Logout",
     "placeholders": {
         "username": "Enter your username",
         "id": "Enter your ID"
