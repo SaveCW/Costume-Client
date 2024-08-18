@@ -158,7 +158,7 @@ else if (window.location.href.includes("https://cat.arisamiga.rocks/")){
             if (request.message === "languageChange") {
                 localStorage.setItem("language", request.language);
                 // Dispatch custom event
-                window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: request.language } }));
+                window.dispatchEvent(new CustomEvent('languageChange', { detail: JSON.stringify({ language: request.language }) }));
                 sendResponse({status: "Language changed successfully"});
                 return true;
             }
