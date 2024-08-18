@@ -1,64 +1,63 @@
-# Costume-Client Mod for #SaveCW Costumes
+# Мод Costume-Client для костюмов #SaveCW
+
+[English](./READMEs/README_EN.md) | [Русский](README.md)
 
 ![#SaveCW Costumes](./icons/icon.png)
 
-#SaveCW Costumes is a project by #SaveCW that allows players to create and use custom costumes in the CatWar game. <br> 
+#SaveCW Costumes — это проект от #SaveCW, который позволяет игрокам создавать и использовать пользовательские костюмы в игре CatWar. <br>
 
-Recent updates to the game have introduced restrictions against "unrealistic" costumes, limiting players' creative expression. Our community-developed mod allows for the use of personalized costumes. 
+Недавние обновления игры ввели ограничения на "нереалистичные" костюмы, ограничивая творческое выражение игроков. Наш мод, разработанный сообществом, позволяет использовать персонализированные костюмы.
 <br>
 
-<b>Please note</b>, to see each other's custom costumes, both players must have the mod installed. This mod is purely cosmetic and does not impact gameplay.
+<b>Обратите внимание</b>, чтобы видеть костюмы друг друга, оба игрока должны установить мод. Этот мод является чисто косметическим и не влияет на игровой процесс.
 
+![Экран без входа в систему](./Screenshot/NoLogin.PNG)
 
-![Not LoggedIn Screen](./Screenshot/NoLogin.PNG)
+![Экран с входом в систему](./Screenshot/LoggedIn.PNG)
 
-![LoggedIn Screen](./Screenshot/LoggedIn.PNG)
+## Установка
 
-## Installation
+(Будет добавлено скоро)
 
-(Will Be added soon)
+## Использование
 
-## Usage
+Когда вы добавите расширение в свой браузер, вы увидите новый значок в правом верхнем углу. Мод уже будет работать и показывать любые костюмы от любых пользователей, у которых установлен мод.
 
-When you add the extension to your browser, you will see a new icon in the top right corner. The mod will work already and show any costumes from any users that have the mod installed. 
+Вход в систему не требуется для просмотра костюмов других пользователей, но необходим для загрузки ваших костюмов.
 
-Logging in is not required to see other users' costumes but is required to upload your costumes.
+Чтобы загрузить свой костюм, нажмите на значок расширения и войдите в систему. Вас попросят добавить ваш CatWar ID и CatWar Username.
 
-To upload your costume, click on the extension icon and log in. You will be asked to add your CatWar ID and CatWar Username.
+Если хотите, вы можете нажать **"Автоматически получить информацию"**, чтобы автоматически получить необходимую информацию из CatWar!
 
-If you want you can click **"Automatically Get info"** to automatically get the required info from CatWar!
+![Экран входа](./Screenshot/loginpage.PNG)
 
-![Login Screen](./Screenshot/loginpage.PNG)
+После этого вас попросят ввести 6-значный код, который будет отправлен в ваши личные сообщения CatWar https://catwar.su/ls
 
-Once you have done that you will be asked to add a 6-pin code which will have been sent to your CatWar PMs https://catwar.su/ls
+![Экран верификации](./Screenshot/verification.PNG)
 
-![Verification Screen](./Screenshot/verification.PNG)
+После этого вы сможете загрузить свой костюм!
 
-Once you have done that you will be able to upload your costume!
+![Экран загрузки](./Screenshot/upload.PNG)
 
-![Upload Screen](./Screenshot/upload.PNG)
+Если вы не видите аватарку вашей кошки на экране загрузки, вы можете нажать кнопку **"Получить вашу кошку"**, чтобы получить аватарку вашей кошки (это используется в основном для того, чтобы вы могли увидеть, как ваш костюм будет выглядеть на вашей кошке).
 
-If you don't see your cat's avatar in the upload screen, you can click on the **"Fetch Your Cat"** button to get your cat's avatar (This is used mostly for you to see how your costume will look on your cat)
+Чтобы загрузить костюм, нажмите "Выбрать файл" и выберите изображение вашего костюма (мы рекомендуем использовать изображение размером 100x150 для наилучших результатов).
 
-To upload a costume you should click on "Choose File" and select the image of your costume (We recommend using a 100x150 image for the best results)
+Ниже вы увидите кнопку **"Загрузить костюм"**, нажмите на нее, чтобы загрузить ваш костюм!
 
-Below you can see the **"Upload Costume"** button, click on it to upload your costume! 
+После загрузки костюма вы сможете увидеть его в игре! (Если вы его не видите, попробуйте обновить страницу).
 
-Once you have uploaded your costume you will be able to see it in the game! (If you don't see it, try refreshing the page)
+В любое время вы можете нажать кнопку **"Выйти"**, чтобы выйти из мода, если это необходимо.
 
-At any time you can click on the **"Logout"** button to log out of the mod if you need to do so.
+## Вклад
 
+Вклады очень приветствуются! Не стесняйтесь открывать issue или pull request, чтобы сделать мод еще лучше!
 
-## Contributing
+## Лицензия
 
-Contributions are very welcome! Don't hesitate to open an issue or a pull request to make the mod even better!
+Этот проект лицензирован под GNU General Public License v3.0 - см. файл [LICENSE](LICENSE) для подробностей.
 
-## License
+## Политика конфиденциальности и Условия использования
+[Политика конфиденциальности](https://cat.arisamiga.rocks/guidelines) | [Условия использования](https://cat.arisamiga.rocks/privacy)
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-## Privacy Policy and Privacy Policy
-[Privacy Policy](https://cat.arisamiga.rocks/guidelines) | [Terms of Service](https://cat.arisamiga.rocks/privacy)
-
-
-> This project is not affiliated with CatWar or any of its developers.
+> Этот проект не связан с CatWar или любыми его разработчиками.
