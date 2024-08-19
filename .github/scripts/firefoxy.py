@@ -110,7 +110,7 @@ try:
         print("- Adding sidebar functionality to manifest.json")
 
         manifest["sidebar_action"] = {
-            "default_icon": "icon.png",
+            "default_icon": "./icons/icon.png",
             "default_title": "Costume-Client",
             "default_panel": "main.html",
             "open_at_install": False
