@@ -20,18 +20,19 @@ jobs:
       - name: 📂 Copy all files to the release directory
         run: |
           mkdir -p ${{ github.workspace }}/release
-          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' ${{ github.workspace }}/ ${{ github.workspace }}/release
+          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshot/' --exclude='READMEs/' --exclude='.github/' --exclude='README.md' ${{ github.workspace }}/ ${{ github.workspace }}/release
 
       - name: Zip Files
-        run: zip -r ${{ github.workspace }}/Chrome-Costume-Client.zip ${{ github.workspace }}/release
-
+        run: |
+          cd ${{ github.workspace }}/release
+          zip -r Chrome-Costume-Client.zip .
       - name: 📤 Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ github.workspace }}/Chrome-Costume-Client.zip
+          asset_path: ${{ github.workspace }}/release/Chrome-Costume-Client.zip
           asset_name: Chrome-Costume-Client.zip
           asset_content_type: application/zip
 
@@ -57,17 +58,18 @@ jobs:
         working-directory: /
         run: |
           mkdir -p ${{ github.workspace }}/release
-          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' ${{ github.workspace }}/ ${{ github.workspace }}/release
+          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshot/' --exclude='READMEs/' --exclude='.github/' --exclude='README.md' ${{ github.workspace }}/ ${{ github.workspace }}/release
 
       - name: Zip Files
-        run: zip -r ${{ github.workspace }}/Firefox-Costume-Client.zip ${{ github.workspace }}/release
-
+        run: |
+          cd ${{ github.workspace }}/release
+          zip -r Firefox-Costume-Client.zip .
       - name: 📤 Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ github.workspace }}/Firefox-Costume-Client.zip
+          asset_path: ${{ github.workspace }}/release/Firefox-Costume-Client.zip
           asset_name: Firefox-Costume-Client.zip
           asset_content_type: application/zip
