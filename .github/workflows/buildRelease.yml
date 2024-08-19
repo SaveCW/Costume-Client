@@ -19,11 +19,14 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/release
           rsync -av --exclude='.git/' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
 
+      - name: Zip Files
+        run: zip -r $GITHUB_WORKSPACE/release/Chrome-Costume-Client.zip $GITHUB_WORKSPACE/release
+
       - name: 📤 Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: $GITHUB_WORKSPACE/release
+          asset_path: $GITHUB_WORKSPACE/release/Chrome-Costume-Client.zip
           asset_name: Chrome-Costume-Client.zip
           asset_content_type: application/zip
 
@@ -51,10 +54,15 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/release
           rsync -av --exclude='.git/' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
 
+      - name: Zip Files
+        run: zip -r $GITHUB_WORKSPACE/release/Firefox-Costume-Client.zip $GITHUB_WORKSPACE/release
+
       - name: 📤 Upload Release Asset
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: $GITHUB_WORKSPACE/release
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: $GITHUB_WORKSPACE/release/Firefox-Costume-Client.zip
           asset_name: Firefox-Costume-Client.zip
           asset_content_type: application/zip
