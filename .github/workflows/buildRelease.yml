@@ -3,6 +3,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 # Add the LICENSE file to the release files
 jobs:
   releaseChrome:
