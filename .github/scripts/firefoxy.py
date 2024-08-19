@@ -116,6 +116,15 @@ try:
             "open_at_install": False
         }
 
+        print("- Adding extention ID to manifest.json")
+
+        manifest["browser_specific_settings"] = {
+            "gecko": {
+                "id": "costumeClient@arisamiga.rocks",
+                "strict_min_version": "109.0"
+            }
+        }
+
         # Write the modified content back to the file
         with open(manifest_path, 'w', encoding='utf-8', newline='') as f:
             f.write(json.dumps(manifest, indent=4))
