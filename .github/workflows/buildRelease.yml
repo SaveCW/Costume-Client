@@ -17,7 +17,7 @@ jobs:
       - name: 📂 Copy all files to the release directory
         run: |
           mkdir -p $GITHUB_WORKSPACE/release
-          rsync -av --exclude='.git/' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
+          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
 
       - name: Zip Files
         run: zip -r $GITHUB_WORKSPACE/Chrome-Costume-Client.zip $GITHUB_WORKSPACE/release
@@ -54,7 +54,7 @@ jobs:
         working-directory: /
         run: |
           mkdir -p $GITHUB_WORKSPACE/release
-          rsync -av --exclude='.git/' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
+          rsync -av --exclude='.git/' --exclude='./release' --exclude='Screenshots/' --exclude='ReadMEs/' --exclude='.github/' --exclude='README.md' $GITHUB_WORKSPACE/ $GITHUB_WORKSPACE/release
 
       - name: Zip Files
         run: zip -r $GITHUB_WORKSPACE/Firefox-Costume-Client.zip $GITHUB_WORKSPACE/release
