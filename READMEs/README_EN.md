@@ -19,7 +19,7 @@ Recent updates to the game have introduced restrictions against "unrealistic" co
 ## Installation
 <a href="https://addons.mozilla.org/firefox/addon/costume-client/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" width="18" /> Firefox addon</a>
 
-<a href=""><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" width="18" /> Chrome extension</a>
+<a href="https://chromewebstore.google.com/detail/eoikjpaodcdclionodbnpmhohfjiadbo"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" width="18" /> Chrome extension</a>
 
 
 
