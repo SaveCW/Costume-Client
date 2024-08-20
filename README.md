@@ -17,7 +17,9 @@
 
 ## Установка
 
-(Будет добавлено скоро)
+<a href="https://addons.mozilla.org/firefox/addon/costume-client/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" width="18" /> Дополнение для Firefox</a>
+
+<a href="https://chromewebstore.google.com/detail/eoikjpaodcdclionodbnpmhohfjiadbo"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" width="18" /> Расширение для Chrome</a>
 
 ## Использование
 
