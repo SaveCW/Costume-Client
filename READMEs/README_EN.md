@@ -47,6 +47,12 @@ For browsers that are not currently supported, you can manually install the exte
 6. The extension should now be installed and ready to use!
 
 
+### Download on Android
+
+You can download the extention using a browser such as [Kiwi Browser](https://kiwibrowser.com/)
+
+After installing the browser, you can install the extension by following the steps above. You should be able to go on the Chrome Web Store and install the extension.
+
 
 ## Usage
 
