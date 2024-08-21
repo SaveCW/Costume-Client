@@ -22,6 +22,31 @@ Recent updates to the game have introduced restrictions against "unrealistic" co
 <a href="https://chromewebstore.google.com/detail/eoikjpaodcdclionodbnpmhohfjiadbo"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" width="18" /> Chrome extension</a>
 
 
+### Manual Installation
+
+For browsers that are not currently supported, you can manually install the extension by following these steps:
+
+1. Go to the Releases page and download the latest version of the extension. https://github.com/SaveCW/Costume-Client/releases/latest
+
+2. Unzip the downloaded file.
+
+3. Open your browser and navigate to the extensions page: 
+
++ For Chrome, go to `chrome://extensions/`
+
++ For Firefox, go to `about:addons` 
+
++ For Edge, go to `edge://extensions/`
+
++ For Opera, go to `opera://extensions/`
+
+4. Enable Developer Mode. (Mostly found on the top right corner of the page)
+
+5. Click on "Load Unpacked" and select the folder where you unzipped the extension.
+
+6. The extension should now be installed and ready to use!
+
+
 
 ## Usage
 
