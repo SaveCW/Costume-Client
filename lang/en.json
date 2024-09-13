@@ -25,6 +25,7 @@
     "serverError": "The server is currently down. Please try again later.",
     "sendCodeError": "Failed to send verification code.",
     "codeFormLabel": "We have send a <a href='https://catwar.su/ls'>PM</a> to your account please enter the 6 digit code below",
+    "sessionError": "Session has expired. Please try to relogin.",
     "sizeError": "The image is too large. Please make sure it is 100x150",
     "back": "&larr; Back",
     "submitCode": "Submit",

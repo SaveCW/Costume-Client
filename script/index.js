@@ -248,6 +248,15 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
                             });
                         });
                     }
+                    else if (response.status === 403) {
+                        // Session went kaboom
+                        setStatus(translation["langdata"]["sessionError"], "error");
+
+                        // Simulate click on the logout button
+                        setTimeout(() => {
+                            document.getElementById("logout").click();
+                        }, 3000);
+                    }
                     else {
                         setStatus(translation["langdata"]["costumeError"], "error");
                     }
