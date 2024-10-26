@@ -113,9 +113,21 @@ hr {
     font-size: 14px;
     margin: 2px 1px;
     border-radius: 12px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
     transition: box-shadow 0.3s ease-in-out;
+}
+
+.removeCostume {
+    /* Underline text */
+    text-decoration: underline;
+    color: #FF5964;
+    cursor: pointer;
+}
+
+.removeCostume:hover {
+    color: #f70010;
+    text-decoration: none;
 }
 
 .changeCostume:hover, #getID:hover, #logout:hover {
