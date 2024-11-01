@@ -30,6 +30,8 @@
     "back": "&larr; Back",
     "submitCode": "Submit",
     "logout": "Logout",
+    "orText": "Or ",
+    "removeCostume": "Remove your costume",
     "placeholders": {
         "username": "Enter your username",
         "id": "Enter your ID"
