@@ -7,7 +7,7 @@
     "changeCostume": "Upload Costume",
     "selectFile": "Please select a file",
     "costumeServerDown": "The Costume Server seems to be down. Costumes will not be displayed. Please try again later",
-    "costumeSuccesfullyChanged": "The costume has been successfully changed!",
+    "costumeSuccesfullyChanged": "Your costume has been successfully changed!",
     "costumeError": "There was an error changing the costume. Please try again later",
     "dpopupContent": "You are currently not in https://catwar.su/cw3 so you cannot make any changes.",
     "getInfo": "Automatically get Info",
@@ -30,6 +30,10 @@
     "back": "&larr; Back",
     "submitCode": "Submit",
     "logout": "Logout",
+    "orText": "Or ",
+    "costumeSuccesfullyRemoved": "Your costume has been successfully removed!",
+    "costumeNotFound": "You are not wearing a costume",
+    "removeCostume": "Remove your costume",
     "placeholders": {
         "username": "Enter your username",
         "id": "Enter your ID"

@@ -76,11 +76,22 @@ Once you have done that you will be able to upload your costume!
 
 If you don't see your cat's avatar in the upload screen, you can click on the **"Fetch Your Cat"** button to get your cat's avatar (This is used mostly for you to see how your costume will look on your cat)
 
+#
+
 To upload a costume you should click on "Choose File" and select the image of your costume (We recommend using a 100x150 image for the best results)
 
 Below you can see the **"Upload Costume"** button, click on it to upload your costume! 
 
 Once you have uploaded your costume you will be able to see it in the game! (If you don't see it, try refreshing the page)
+
+
+#
+
+You can remove your costume by clicking on the **"Remove your Costume"** text below the **"Upload Costume"** button.
+
+This will remove your costume from the game and you will be able to upload a new one.
+
+#
 
 At any time you can click on the **"Logout"** button to log out of the mod if you need to do so.
 

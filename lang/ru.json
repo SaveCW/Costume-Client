@@ -30,6 +30,10 @@
     "back": "&larr; назад",
     "submitCode": "Отправить",
     "logout": "Выйти",
+    "orText": "Или ",
+    "costumeSuccesfullyRemoved": "Костюм успешно снят!",
+    "costumeNotFound": "Вы не носите костюм",
+    "removeCostume": "Удалить ваш костюм",
     "placeholders": {
         "username": "Введите ваше имя пользователя",
         "id": "Введите ваш ID"
