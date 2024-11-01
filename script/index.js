@@ -271,3 +271,65 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
     });
 
 });
+
+// ##############
+
+document.getElementsByClassName("removeCostume")[0].addEventListener("click", function() {
+    chrome.storage.local.get(["catId", "catImageSize"], function(result){
+        var id = parseInt(result.catId);
+        fetch("https://cat.arisamiga.rocks/delete/" + id, {
+            method: "DELETE"
+        })
+        .then(response => {
+            if (response.ok) {
+                chrome.storage.local.get("langdata", function(translation) {
+                    setStatus(translation["langdata"]["costumeSuccesfullyRemoved"], "success");
+                });
+
+                if (document.querySelector(".cat").querySelector("div") !== null) {
+                    document.querySelector(".cat").querySelector("div").remove();
+                }
+                // Send request to contentScript to update the costume
+                chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                    const queryTabId = tabs[0].id;
+                    const tab = tabs[0];
+                
+                    // Check if the tab is already loaded
+                    if (tab.status === 'complete') {
+                        chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
+                            // console.log(response);
+                        });
+                    }
+                
+                    // Add listener for future updates
+                    const updatedListener = function(tabId, changeInfo, tab) {
+                        // console.log(changeInfo);
+                        if (queryTabId === tab.id && changeInfo.status === 'complete') {
+                            chrome.tabs.sendMessage(queryTabId, { message: "updateCostume" }, function(response) {
+                                // console.log(response);
+                            });
+                            chrome.tabs.onUpdated.removeListener(updatedListener); // Remove listener to avoid multiple injections
+                        }
+                    };
+                
+                    chrome.tabs.onUpdated.addListener(updatedListener);
+                });
+            }
+            else if (response.status === 404) {
+                chrome.storage.local.get("langdata", function(translation) {
+                    setStatus(translation["langdata"]["costumeNotFound"], "warning");
+                });
+            }
+            else {
+                chrome.storage.local.get("langdata", function(translation) {
+                    setStatus(translation["langdata"]["costumeError"], "error");
+                });
+            }
+        })
+        .catch(err => {
+            chrome.storage.local.get("langdata", function(translation) {
+                setStatus(translation["langdata"]["costumeError"], "error");
+            });
+        })
+    });
+});

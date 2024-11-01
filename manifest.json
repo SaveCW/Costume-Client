@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Costume-Client",
   "description": "Client for Costume Mod by #SaveCW | Клиент для мода на костюмы от #SaveCW",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "action": {
     "default_popup": "main.html",
     "default_icon": "./icons/icon.png"
