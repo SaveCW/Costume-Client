@@ -106,7 +106,7 @@ function setStatus(statusText, option) {
 
 
 document.getElementById("getID").addEventListener("click", function() {
-    fetch("https://catwar.su/")
+    fetch("https://catwar.net/")
     .then(response => response.text())
     .then(text => {
         // Create a new document
@@ -130,7 +130,7 @@ document.getElementById("getID").addEventListener("click", function() {
                 // Clear previous content
                 document.getElementById("catImage").innerHTML = ""
                 var catImage = document.getElementById("catImage");
-                var src = "https://catwar.su" + result[0].result.src;
+                var src = "https://catwar.net" + result[0].result.src;
                 var size = result[0].result.size;
                 catImage.style.backgroundImage = "url('" + src + "')";
                 catImage.style.backgroundSize = size;

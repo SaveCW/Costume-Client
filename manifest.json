@@ -18,7 +18,7 @@
     "cookies"
   ],
   "host_permissions": [
-    "https://catwar.su/cw3/*",
+    "https://catwar.net/cw3/*",
     "https://cat.arisamiga.rocks/*"
   ],
   "background": {
@@ -26,7 +26,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://catwar.su/cw3/*", "https://cat.arisamiga.rocks/"],
+      "matches": ["https://catwar.net/cw3/*", "https://cat.arisamiga.rocks/"],
       "js": ["contentScript.js"],
       "run_at": "document_idle"
     }

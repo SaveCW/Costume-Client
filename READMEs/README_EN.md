@@ -66,7 +66,7 @@ If you want you can click **"Automatically Get info"** to automatically get the 
 
 ![Login Screen](../Screenshot/loginpageEN.PNG)
 
-Once you have done that you will be asked to add a 6-pin code which will have been sent to your CatWar PMs https://catwar.su/ls
+Once you have done that you will be asked to add a 6-pin code which will have been sent to your CatWar PMs https://catwar.net/ls
 
 ![Verification Screen](../Screenshot/verificationEN.PNG)
 

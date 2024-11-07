@@ -1,5 +1,5 @@
 document.getElementById("getInfo").addEventListener("click", function() {
-    fetch("https://catwar.su/")
+    fetch("https://catwar.net/")
     .then(response => response.text())
     .then(text => {
         // Create a new document

@@ -1,4 +1,4 @@
-if (window.location.href.includes("https://catwar.su/cw3")) {
+if (window.location.href.includes("https://catwar.net/cw3")) {
     console.log("Successfully Loaded #SaveCW Costume Client");
 
     function deletePreviousCostumes() {

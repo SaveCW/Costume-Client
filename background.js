@@ -6,7 +6,7 @@ function updateIconForTab(tab) {
     chrome.cookies.get({ url: "https://cat.arisamiga.rocks", name: "connect.sid" }, cookie => {
         if (cookie) {
             // If logged in, decide which popup to use based on the URL
-            if (tab.url && tab.url.includes("https://catwar.su/cw3")) {
+            if (tab.url && tab.url.includes("https://catwar.net/cw3")) {
                 chrome.action.setIcon({ path: "./icons/icon.png", tabId: tab.id });
                 chrome.action.setPopup({ tabId: tab.id, popup: "popup.html" }); // Assuming "popup.html" is your popup
                 //%%FirefoxSB:popup.html%%
