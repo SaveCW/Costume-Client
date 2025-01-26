@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./style/main.css">
     <script defer src="./script/languages.js"></script>
     <script defer src="./script/main.js"></script>
+    <script defer src="./script/frontSettings.js"></script>
 </head>
 <body>
     <div class="container">
@@ -34,6 +35,20 @@
             </div>
         </div>
         <div class="statusContainer"></div>
+
+        <button id="settingsButton" class="gear-button">
+            <img src="./images/gear-icon.png" alt="Settings" width="20" height="20">
+        </button>
+        
+        <!-- Settings Layer -->
+        <div id="settingsLayer" class="settings-layer">
+            <div class="settings-content">
+                <span id="closeSettings" class="close-settings">&times;</span>
+                <h2>Settings</h2>
+                <!-- Add your settings content here -->
+                <p>Settings content goes here...</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
