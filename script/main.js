@@ -275,3 +275,39 @@ document.getElementById("submit").addEventListener("click", function() {
         });
     });
 });
+
+function settingsStatus(message, color) {
+    var status = document.getElementById("statusSettings");
+    if (status.querySelector("#statusSettings") != null) {
+        status.removeChild(status.querySelector("#statusSettings"));
+    }
+
+    document.getElementById("statusSettings").style.display = "block";
+
+    var div = document.createElement("div");
+    div.id = "statusSettings";
+    div.style.backgroundColor = color;
+    div.innerText = message;
+    status.appendChild(div);
+
+    // Pick good hex color for text for color given 
+    div.style.color = getContrastingTextColor(color);
+
+    // Resize popup
+    // document.body.style.height = "fit-content";
+
+    setTimeout(() => {
+        div.style.opacity = 0;
+        setTimeout(() => {
+            div.style.backgroundColor = "transparent";
+            div.innerHTML = "";
+            document.getElementById("statusSettings").style.display = "none";
+        }, 2000);
+    }, 2000);
+}
+
+document.getElementById("saveSettings").addEventListener("click", function() {
+
+    settingsStatus("Settings saved", "green");
+
+});
