@@ -35,18 +35,20 @@ function addWarning(message, timeout = 15000){
 
 async function getCostume(id, size) {
     try {
-        const response = await fetch("https://cat.arisamiga.rocks/search?name=" + id);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        if (data["children"].length == 0) return null;
+        chrome.storage.local.get("costumeServerURL", async function(result) {
+            const response = await fetch(result["costumeServerURL"] + "/search?name=" + id);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            if (data["children"].length == 0) return null;
 
-        var costume = document.createElement("div");
-        costume.style.backgroundImage = "url('" + "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png" + "')";
-        costume.className = "cat";
-        costume.style.backgroundSize = size;
-        return costume;
+            var costume = document.createElement("div");
+            costume.style.backgroundImage = "url('" + result["costumeServerURL"] + "/images/" + data["children"][0]["imguuid"] + ".png" + "')";
+            costume.className = "cat";
+            costume.style.backgroundSize = size;
+            return costume;
+        });
     } catch (error) {
         chrome.storage.local.get("langdata", function(result) {
             addWarning(result["langdata"]["costumeServerDown"]);
@@ -173,7 +175,7 @@ loadInfo();
 
 
 document.getElementsByClassName("changeCostume")[0].addEventListener("click", function() {
-    chrome.storage.local.get(["catId", "catImageSrc", "catImageSize"], function(result){
+    chrome.storage.local.get(["catId", "catImageSrc", "catImageSize", "costumeServerURL"], function(result){
 
         var file = document.getElementById("file").files[0];
         var formData = new FormData();
@@ -203,7 +205,7 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
             var binaryString = String.fromCharCode.apply(null, uint8Array);
             var base64EncodedString = btoa(binaryString);
             var id = parseInt(result.catId)
-                fetch("https://cat.arisamiga.rocks/", {
+                fetch(result["costumeServerURL"], {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json', // Ensure this header is set
@@ -275,9 +277,9 @@ document.getElementsByClassName("changeCostume")[0].addEventListener("click", fu
 // ##############
 
 document.getElementsByClassName("removeCostume")[0].addEventListener("click", function() {
-    chrome.storage.local.get(["catId", "catImageSize"], function(result){
+    chrome.storage.local.get(["catId", "catImageSize", "costumeServerURL"], function(result){
         var id = parseInt(result.catId);
-        fetch("https://cat.arisamiga.rocks/delete/" + id, {
+        fetch(result["costumeServerURL"] + "/delete/" + id, {
             method: "DELETE"
         })
         .then(response => {

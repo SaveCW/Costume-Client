@@ -141,7 +141,7 @@ document.getElementById("submit").addEventListener("click", function() {
         
         // Function to handle code submission
         function submitCode() {
-            chrome.storage.local.get("langdata", function(translation) {   
+            chrome.storage.local.get(["langdata", "costumeServerURL"], function(translation) {   
                 // Assuming 'id' and 'username' are defined elsewhere in your code
                 const code = Array.from(document.querySelectorAll('.code'))
                             .map(input => input.value === '' ? '0' : input.value)
@@ -156,7 +156,7 @@ document.getElementById("submit").addEventListener("click", function() {
                 // Block more presses
                 document.getElementById("submitCode").disabled = "true"
 
-                fetch("https://cat.arisamiga.rocks/verify", {
+                fetch(translation["costumeServerURL"] + "/verify", {
                     method: 'POST',
                     credentials: 'include', // Include credentials (cookies) in the request
                     headers: { 'Content-Type': 'application/json' },
@@ -241,13 +241,13 @@ document.getElementById("submit").addEventListener("click", function() {
         }
 
         // Check if we have a state
-        chrome.storage.local.get("state", function(result) {
+        chrome.storage.local.get(["state", "costumeServerURL"], function(result) {
             if (result.state && result.state.status === "verify") {
                 // If we have a state, initialize the form
                 initializeForm();
             }
             else {
-                fetch("https://cat.arisamiga.rocks/register", {
+                fetch(result["costumeServerURL"] + "/register", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -350,7 +350,9 @@ document.getElementById("saveSettings").addEventListener("click", function() {
 
     var newHost = document.getElementById("costumeServerURL").value;
     if(requestNewHostPermission(newHost)){
-        // Save the new host
+        if (newHost.endsWith("/")) {
+            newHost = newHost.slice(0, -1);
+        }
         chrome.storage.local.set({ costumeServerURL: newHost });
         settingsStatus("Settings saved", "green");
         serverStatus(newHost)
