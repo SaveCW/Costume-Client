@@ -306,8 +306,31 @@ function settingsStatus(message, color) {
     }, 2000);
 }
 
+async function requestNewHostPermission(newHost) {
+    try {
+      // Ensure newHost starts with https:// and is properly formatted
+      if (!newHost.startsWith('https://')) {
+        newHost = 'https://' + newHost;
+      }
+      
+      const granted = await chrome.permissions.request({
+        origins: [`${newHost}/*`]
+      });
+      if (granted) {
+        console.log('New host permission granted');
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error('Error requesting permission:', err);
+      return false;
+    }
+}
+
 document.getElementById("saveSettings").addEventListener("click", function() {
 
+    var newHost = document.getElementById("costumeServerURL").value;
+    requestNewHostPermission(newHost);
     settingsStatus("Settings saved", "green");
 
 });

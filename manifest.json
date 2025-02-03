@@ -17,6 +17,10 @@
     "storage",
     "cookies"
   ],
+  "optional_permissions": ["tabs"],
+  "optional_host_permissions": [
+    "https://*/*"
+  ],
   "host_permissions": [
     "https://catwar.net/cw3/*",
     "https://cat.arisamiga.rocks/*"
