@@ -327,10 +327,37 @@ async function requestNewHostPermission(newHost) {
     }
 }
 
+function serverStatus(url) {
+    var status = document.getElementsByClassName("serverStatus")[0];
+    fetch(url, {
+        method: 'GET',
+    })
+    .then(response => {
+        if (response.status === 200) {
+            status.innerHTML = `Server Status: <span style="color: green">Online</span>`;
+        }
+        else {
+            status.innerHTML = `Server Status: <span style="color: red">Offline</span>`;
+        }
+    })
+    .catch(() => {
+        status.innerHTML = `Server Status: <span style="color: red">Offline</span>`;
+    });
+
+}
+
 document.getElementById("saveSettings").addEventListener("click", function() {
 
     var newHost = document.getElementById("costumeServerURL").value;
-    requestNewHostPermission(newHost);
-    settingsStatus("Settings saved", "green");
+    if(requestNewHostPermission(newHost)){
+        // Save the new host
+        chrome.storage.local.set({ costumeServerURL: newHost });
+        settingsStatus("Settings saved", "green");
+        serverStatus(newHost)
+
+    }
+    else {
+        settingsStatus("Error saving settings", "red");
+    }
 
 });
