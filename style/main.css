@@ -213,7 +213,7 @@ body {
 .close-settings {
     float: right;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .gear-button {
@@ -259,4 +259,13 @@ body {
     background-color: #cccccc;
     color: black;
     font-weight: bold;
+}
+
+.settingsTitleContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }

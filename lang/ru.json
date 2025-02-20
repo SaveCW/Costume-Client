@@ -34,8 +34,18 @@
     "costumeSuccesfullyRemoved": "Костюм успешно снят!",
     "costumeNotFound": "Вы не носите костюм",
     "removeCostume": "Удалить ваш костюм",
+    "saveSettings": "Сохранить",
+    "serverURL": "URL сервера костюмов:",
+    "savedSettings": "Настройки сохранены",
+    "savedSettingsError": "Ошибка сохранения настроек",
+    "serverStatusText": "Статус сервера",
+    "serverStatusOnline": "Онлайн",
+    "serverStatusOffline": "Оффлайн",
+    "fillAllInfoURL": "Пожалуйста, укажите URL",
+    "settingsTitle": "Настройки",
     "placeholders": {
         "username": "Введите ваше имя пользователя",
-        "id": "Введите ваш ID"
+        "id": "Введите ваш ID",
+        "costumeServerURL": "Введите URL сервера костюмов"
     }
 }

@@ -34,8 +34,18 @@
     "costumeSuccesfullyRemoved": "Your costume has been successfully removed!",
     "costumeNotFound": "You are not wearing a costume",
     "removeCostume": "Remove your costume",
+    "saveSettings": "Save",
+    "serverURL": "Costume Server URL:",
+    "savedSettings": "Settings saved",
+    "savedSettingsError": "Error saving settings",
+    "serverStatusText": "Server Status",
+    "serverStatusOnline": "Online",
+    "serverStatusOffline": "Offline",
+    "fillAllInfoURL": "Please provide a URL",
+    "settingsTitle": "Settings",
     "placeholders": {
         "username": "Enter your username",
-        "id": "Enter your ID"
+        "id": "Enter your ID",
+        "costumeServerURL": "Enter Costume Server URL"
     }
 }

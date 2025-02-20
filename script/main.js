@@ -328,38 +328,45 @@ async function requestNewHostPermission(newHost) {
 }
 
 function serverStatus(url) {
-    var status = document.getElementsByClassName("serverStatus")[0];
-    fetch(url, {
-        method: 'GET',
+    chrome.storage.local.get("langdata", function(translation) {  
+        var status = document.getElementsByClassName("serverStatus")[0];
+        fetch(url, {
+            method: 'GET',
+        })
+        .then(response => {
+            if (response.status === 200) {
+                status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: green">${translation["langdata"]["serverStatusOnline"]}</span>`;
+            }
+            else {
+                status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: red">${translation["langdata"]["serverStatusOffline"]}</span>`;
+            }
+        })
+        .catch(() => {
+            status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: red">${translation["langdata"]["serverStatusOffline"]}</span>`;
+        });
     })
-    .then(response => {
-        if (response.status === 200) {
-            status.innerHTML = `Server Status: <span style="color: green">Online</span>`;
-        }
-        else {
-            status.innerHTML = `Server Status: <span style="color: red">Offline</span>`;
-        }
-    })
-    .catch(() => {
-        status.innerHTML = `Server Status: <span style="color: red">Offline</span>`;
-    });
-
 }
 
 document.getElementById("saveSettings").addEventListener("click", function() {
-
-    var newHost = document.getElementById("costumeServerURL").value;
-    if(requestNewHostPermission(newHost)){
-        if (newHost.endsWith("/")) {
-            newHost = newHost.slice(0, -1);
+    chrome.storage.local.get("langdata", function(translation) {   
+        var newHost = document.getElementById("costumeServerURL").value;
+        if (newHost == "") {
+            settingsStatus(translation["langdata"]["fillAllInfoURL"], "red");
+            return;
         }
-        chrome.storage.local.set({ costumeServerURL: newHost });
-        settingsStatus("Settings saved", "green");
-        serverStatus(newHost)
 
-    }
-    else {
-        settingsStatus("Error saving settings", "red");
-    }
+        if(requestNewHostPermission(newHost)){
+            if (newHost.endsWith("/")) {
+                newHost = newHost.slice(0, -1);
+            }
+            chrome.storage.local.set({ costumeServerURL: newHost });
+            settingsStatus(translation["langdata"]["savedSettings"], "green");
+            serverStatus(newHost)
+
+        }
+        else {
+            settingsStatus(translation["langdata"]["savedSettingsError"], "red");
+        }
+    });
 
 });
