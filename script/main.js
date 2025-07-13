@@ -141,7 +141,7 @@ document.getElementById("submit").addEventListener("click", function() {
         
         // Function to handle code submission
         function submitCode() {
-            chrome.storage.local.get("langdata", function(translation) {   
+            chrome.storage.local.get(["langdata", "costumeServerURL"], function(translation) {   
                 // Assuming 'id' and 'username' are defined elsewhere in your code
                 const code = Array.from(document.querySelectorAll('.code'))
                             .map(input => input.value === '' ? '0' : input.value)
@@ -156,7 +156,7 @@ document.getElementById("submit").addEventListener("click", function() {
                 // Block more presses
                 document.getElementById("submitCode").disabled = "true"
 
-                fetch("https://cat.arisamiga.rocks/verify", {
+                fetch(translation["costumeServerURL"] + "/verify", {
                     method: 'POST',
                     credentials: 'include', // Include credentials (cookies) in the request
                     headers: { 'Content-Type': 'application/json' },
@@ -241,13 +241,13 @@ document.getElementById("submit").addEventListener("click", function() {
         }
 
         // Check if we have a state
-        chrome.storage.local.get("state", function(result) {
+        chrome.storage.local.get(["state", "costumeServerURL"], function(result) {
             if (result.state && result.state.status === "verify") {
                 // If we have a state, initialize the form
                 initializeForm();
             }
             else {
-                fetch("https://cat.arisamiga.rocks/register", {
+                fetch(result["costumeServerURL"] + "/register", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -274,4 +274,98 @@ document.getElementById("submit").addEventListener("click", function() {
             }
         });
     });
+});
+
+function settingsStatus(message, color) {
+    var status = document.getElementById("statusSettings");
+    if (status.querySelector("#statusSettings") != null) {
+        status.removeChild(status.querySelector("#statusSettings"));
+    }
+
+    document.getElementById("statusSettings").style.display = "block";
+
+    var div = document.createElement("div");
+    div.id = "statusSettings";
+    div.style.backgroundColor = color;
+    div.innerText = message;
+    status.appendChild(div);
+
+    // Pick good hex color for text for color given 
+    div.style.color = getContrastingTextColor(color);
+
+    // Resize popup
+    // document.body.style.height = "fit-content";
+
+    setTimeout(() => {
+        div.style.opacity = 0;
+        setTimeout(() => {
+            div.style.backgroundColor = "transparent";
+            div.innerHTML = "";
+            document.getElementById("statusSettings").style.display = "none";
+        }, 2000);
+    }, 2000);
+}
+
+async function requestNewHostPermission(newHost) {
+    try {
+      if (!newHost.startsWith('https://') && !newHost.startsWith('http://')) {
+        newHost = 'https://' + newHost;
+      }
+      
+      const granted = await chrome.permissions.request({
+        origins: [`${newHost}/*`]
+      });
+      if (granted) {
+        console.log('New host permission granted');
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error('Error requesting permission:', err);
+      return false;
+    }
+}
+
+function serverStatus(url) {
+    chrome.storage.local.get("langdata", function(translation) {  
+        var status = document.getElementsByClassName("serverStatus")[0];
+        fetch(url, {
+            method: 'GET',
+        })
+        .then(response => {
+            if (response.status === 200) {
+                status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: green">${translation["langdata"]["serverStatusOnline"]}</span>`;
+            }
+            else {
+                status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: red">${translation["langdata"]["serverStatusOffline"]}</span>`;
+            }
+        })
+        .catch(() => {
+            status.innerHTML = `${translation["langdata"]["serverStatusText"]}: <span style="color: red">${translation["langdata"]["serverStatusOffline"]}</span>`;
+        });
+    })
+}
+
+document.getElementById("saveSettings").addEventListener("click", function() {
+    chrome.storage.local.get("langdata", function(translation) {   
+        var newHost = document.getElementById("costumeServerURL").value;
+        if (newHost == "") {
+            settingsStatus(translation["langdata"]["fillAllInfoURL"], "red");
+            return;
+        }
+
+        if(requestNewHostPermission(newHost)){
+            if (newHost.endsWith("/")) {
+                newHost = newHost.slice(0, -1);
+            }
+            chrome.storage.local.set({ costumeServerURL: newHost });
+            settingsStatus(translation["langdata"]["savedSettings"], "green");
+            serverStatus(newHost)
+
+        }
+        else {
+            settingsStatus(translation["langdata"]["savedSettingsError"], "red");
+        }
+    });
+
 });

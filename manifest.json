@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Costume-Client",
+  "name": "Costume-Client (Dev)",
   "description": "Client for Costume Mod by #SaveCW | Клиент для мода на костюмы от #SaveCW",
   "version": "1.1.1",
   "action": {
@@ -16,6 +16,11 @@
     "scripting",
     "storage",
     "cookies"
+  ],
+  "optional_permissions": ["tabs"],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
   ],
   "host_permissions": [
     "https://catwar.net/cw3/*",

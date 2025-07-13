@@ -95,6 +95,18 @@ This will remove your costume from the game and you will be able to upload a new
 
 At any time you can click on the **"Logout"** button to log out of the mod if you need to do so.
 
+## Changing Costume Server
+With the latest update, you can now change the costume server to use a different server. This is useful if you want to use a different server for any reason. 
+
+![Change Server Screen](../Screenshot/settingsInitialEN.PNG)
+
+To access the settings page, click the gear icon at the bottom of the extension popup.
+
+![Settings Screen](../Screenshot/settingsPageEN.PNG)
+
+On the settings page, you can change the url of the server by changing the default "https://cat.arisamiga.rocks" to the server you want to use. Make sure you have a "https://" before the url.
+
+After you have changed the server, click the **"Save"** button to save the changes.
 
 ## Contributing
 

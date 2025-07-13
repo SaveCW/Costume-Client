@@ -2,14 +2,16 @@ if (window.location.href.includes("https://catwar.net/cw3")) {
     console.log("Successfully Loaded #SaveCW Costume Client");
 
     function deletePreviousCostumes() {
-        const elements = document.querySelectorAll('div[data-v-59afe5e8]:not([id])');
-        const filteredElements = Array.from(elements).filter(el => el.className === '')
-        filteredElements.forEach((element) => {
-            const url = element.style.backgroundImage.replace(/url\("([^"]+)"\)/, '$1');
-            if (url.startsWith("https://cat.arisamiga.rocks")) {
-                element.remove();
-            }
-        })
+        chrome.storage.local.get("costumeServerURL", function(result) {
+            const elements = document.querySelectorAll('div[data-v-59afe5e8]:not([id])');
+            const filteredElements = Array.from(elements).filter(el => el.className === '')
+            filteredElements.forEach((element) => {
+                const url = element.style.backgroundImage.replace(/url\("([^"]+)"\)/, '$1');
+                if (url.startsWith(result["costumeServerURL"])) {
+                    element.remove();
+                }
+            })
+        });
     }
 
     function costumeCreate(catSize, costumeURL, catPos) {
@@ -48,15 +50,17 @@ if (window.location.href.includes("https://catwar.net/cw3")) {
                 return;
             }
             var catSize = cat.getElementsByClassName("first")[0].style.backgroundSize;
-            fetch("https://cat.arisamiga.rocks/search?name=" + catId)
-            .then(response => response.json())
-            .then(data => {
-                if (data["children"].length == 0) return;
-                var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                var costume = costumeCreate(catSize, costumeURL, catPos)
-                catPos.appendChild(costume);
-            })
-            .catch(err => { const mute = err })
+            chrome.storage.local.get("costumeServerURL", function(result) {
+                fetch(result["costumeServerURL"] + "/search?name=" + catId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["children"].length == 0) return;
+                    var costumeURL = result["costumeServerURL"] + "/images/" + data["children"][0]["imguuid"] + ".png";
+                    var costume = costumeCreate(catSize, costumeURL, catPos)
+                    catPos.appendChild(costume);
+                })
+                .catch(err => { const mute = err })
+            });
         });
     }
 
@@ -73,42 +77,47 @@ if (window.location.href.includes("https://catwar.net/cw3")) {
 
     // Costume Apply on Cage Change
     const observer2 = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === "childList") {
-                mutation.addedNodes.forEach((node) => {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("catWithArrow")){
-                        // A cat has been added
-                        var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
-                        var catPos = node.querySelector(".d");
-                        var catsize = node.getElementsByClassName("first")[0].style.backgroundSize;
-                        fetch("https://cat.arisamiga.rocks/search?name=" + catId)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data["children"].length == 0) return;
-                            var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                            var costume = costumeCreate(catsize, costumeURL, catPos)
-                            catPos.appendChild(costume);
-                        })
-                        .catch(err => { const mute = err })
-                    }
-                    else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("cage_items") && node.querySelector(".d") != null){
-                        // A cat has been added after sniff
-                        var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
-                        var catPos = node.querySelector(".d");
-                        var catsize = node.querySelector(".first").style.backgroundSize;
-                        fetch("https://cat.arisamiga.rocks/search?name=" + catId)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data["children"].length == 0) return;
+        chrome.storage.local.get("costumeServerURL", function (result) {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "childList") {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("catWithArrow")) {
+                            // A cat has been added
+                            var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
+                            var catPos = node.querySelector(".d");
+                            var catsize = node.getElementsByClassName("first")[0].style.backgroundSize;
 
-                            var costumeURL = "https://cat.arisamiga.rocks/images/" + data["children"][0]["imguuid"] + ".png";
-                            var costume = costumeCreate(catsize, costumeURL, catPos)
-                            catPos.appendChild(costume);
-                        })
-                        .catch(err => { const mute = err })
-                    }
-                });
-            }
+                            fetch(result["costumeServerURL"] + "/search?name=" + catId)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data["children"].length == 0) return;
+                                    var costumeURL = result["costumeServerURL"] + "/images/" + data["children"][0]["imguuid"] + ".png";
+                                    var costume = costumeCreate(catsize, costumeURL, catPos)
+                                    catPos.appendChild(costume);
+                                })
+                                .catch(err => { const mute = err })
+                        }
+                        else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("cage_items") && node.querySelector(".d") != null) {
+                            // A cat has been added after sniff
+                            var catId = node.querySelector("a").getAttribute("href").replace("/cat", "");
+                            var catPos = node.querySelector(".d");
+                            var catsize = node.querySelector(".first").style.backgroundSize;
+                            fetch(result["costumeServerURL"] + "/search?name=" + catId)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data["children"].length == 0) return;
+
+                                    var costumeURL = result["costumeServerURL"] + "/images/" + data["children"][0]["imguuid"] + ".png";
+                                    var costume = costumeCreate(catsize, costumeURL, catPos)
+                                    catPos.appendChild(costume);
+                                })
+                                .catch(err => { const mute = err })
+
+                        }
+                    });
+
+                }
+            });
         });
     });
 
@@ -144,24 +153,28 @@ if (window.location.href.includes("https://catwar.net/cw3")) {
     );
 }
 
-else if (window.location.href.includes("https://cat.arisamiga.rocks/")){
-    console.log("Successfully Loaded #SaveCW Costume Client");
+else if (window.location.href.includes("cat.arisamiga.rocks")){
+    chrome.storage.local.get("costumeServerURL", function(result) {
+        if (window.location.href.includes(result["costumeServerURL"])) {
+            console.log("Successfully Loaded #SaveCW Costume Client");
 
-    // We are in our server page
-    chrome.storage.local.get(['language'], function(result) {
-        localStorage.setItem("language", result["language"]);
-    });
+            // We are in our server page
+            chrome.storage.local.get(['language'], function(result) {
+                localStorage.setItem("language", result["language"]);
+            });
 
-    // Listen from popup for language change to change language
-    chrome.runtime.onMessage.addListener(
-        function(request, sender, sendResponse) {
-            if (request.message === "languageChange") {
-                localStorage.setItem("language", request.language);
-                // Dispatch custom event
-                window.dispatchEvent(new CustomEvent('languageChange', { detail: JSON.stringify({ language: request.language }) }));
-                sendResponse({status: "Language changed successfully"});
-                return true;
-            }
+            // Listen from popup for language change to change language
+            chrome.runtime.onMessage.addListener(
+                function(request, sender, sendResponse) {
+                    if (request.message === "languageChange") {
+                        localStorage.setItem("language", request.language);
+                        // Dispatch custom event
+                        window.dispatchEvent(new CustomEvent('languageChange', { detail: JSON.stringify({ language: request.language }) }));
+                        sendResponse({status: "Language changed successfully"});
+                        return true;
+                    }
+                }
+            );
         }
-    );
+    });
 }
