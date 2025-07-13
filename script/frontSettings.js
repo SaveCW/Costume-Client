@@ -2,6 +2,10 @@ document.getElementById('settingsButton').addEventListener('click', function() {
     document.getElementById('settingsLayer').style.display = 'block';
 
     chrome.storage.local.get("costumeServerURL", function(URL) {
+        if (URL["costumeServerURL"] === undefined) {
+            URL["costumeServerURL"] = "https://cat.arisamiga.rocks";
+            chrome.storage.local.set({"costumeServerURL": URL["costumeServerURL"]});
+        }
         document.getElementById("costumeServerURL").value = URL["costumeServerURL"];
 
         serverStatus(URL["costumeServerURL"]);

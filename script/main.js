@@ -308,8 +308,7 @@ function settingsStatus(message, color) {
 
 async function requestNewHostPermission(newHost) {
     try {
-      // Ensure newHost starts with https:// and is properly formatted
-      if (!newHost.startsWith('https://')) {
+      if (!newHost.startsWith('https://') && !newHost.startsWith('http://')) {
         newHost = 'https://' + newHost;
       }
       
