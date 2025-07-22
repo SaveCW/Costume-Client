@@ -369,3 +369,9 @@ document.getElementById("saveSettings").addEventListener("click", function() {
     });
 
 });
+
+
+document.getElementById('closeAlert').onclick = function() {
+    document.getElementById('floatingAlert').style.display = 'none';
+    document.getElementById('loginTitle').style.marginTop = "1rem";
+};

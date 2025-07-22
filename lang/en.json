@@ -43,6 +43,7 @@
     "serverStatusOffline": "Offline",
     "fillAllInfoURL": "Please provide a URL",
     "settingsTitle": "Settings",
+    "alertNotice": "News About Costume-Client",
     "placeholders": {
         "username": "Enter your username",
         "id": "Enter your ID",

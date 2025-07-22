@@ -269,3 +269,41 @@ body {
     align-items: center;
     gap: 0.5rem;
 }
+
+.floating-alert {
+    animation: floatUpDown 1.2s infinite ease-in-out;
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    background: #fffbe6;
+    border: 2.5px solid #ff9800;
+    box-shadow: 0 4px 16px rgba(255, 152, 0, 0.15), 0 1.5px 6px rgba(0,0,0,0.08);
+    padding: 0.7rem 1.2rem;
+    border-radius: 1.5rem;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    width: 90%;
+    transition: box-shadow 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.floating-alert:hover {
+    background: #ffe0b2;
+    box-shadow: 0 6px 24px rgba(255, 152, 0, 0.25), 0 2px 8px rgba(0,0,0,0.12);
+}
+
+@keyframes floatUpDown {
+    0%   { top: 0.5rem; }
+    50%  { top: 1.2rem; }
+    100% { top: 0.5rem; }
+}
+
+#loginTitle {
+    margin-top: 5rem;
+    transition: margin-top 0.3s ease-in-out;
+}

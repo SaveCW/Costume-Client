@@ -43,6 +43,7 @@
     "serverStatusOffline": "Оффлайн",
     "fillAllInfoURL": "Пожалуйста, укажите URL",
     "settingsTitle": "Настройки",
+    "alertNotice": "Новости о компании Costume-Client",
     "placeholders": {
         "username": "Введите ваше имя пользователя",
         "id": "Введите ваш ID",
