@@ -1,5 +1,7 @@
 # Мод Costume-Client для костюмов #SaveCW
 
+> Пожалуйста, проверьте статус Costume-Client по адресу https://blog.arisamiga.rocks/post/shutdowncostumeclient/
+
 [English](./READMEs/README_EN.md) | [Русский](README.md)
 
 ![#SaveCW Costumes](./icons/icon.png)
